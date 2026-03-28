@@ -401,7 +401,7 @@ A position exits on any of four conditions:
 1. **Stop-loss** — price breaches the ATR-based stop (server-side or code-side)
 2. **Time-based** — held 14 days with less than 2% gain and a weakening signal; or underwater for 7 days below the S.BUY threshold
 3. **Signal exit** — composite drops below S.BUY and a grace period of 2 collection cycles expires
-4. **Price-aware discount** — if a position is down more than 5% for more than 5 days, the effective composite is penalized by $\min(|P\&L|,\; 0.30)$, allowing time-based exits to fire even when the raw signal remains strong
+4. **Price-aware discount** — if a position is down more than 5% for more than 5 days, the effective composite is penalized by $\min(|r_{pos}|,\; 0.30)$, where $r_{pos}$ is the position's unrealized return,, allowing time-based exits to fire even when the raw signal remains strong
 
 ### 5.6 Portfolio Risk Management
 

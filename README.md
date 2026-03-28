@@ -51,8 +51,8 @@ A Raspberry Pi collects data four times daily (8:30am, 11am, 2pm, 10pm Central) 
 | **CapitolTrades.com** (main feed) | All recent STOCK Act disclosures across every filing member | 4× daily |
 | **CapitolTrades.com** (individual profiles) | Full trade history for 194 actively trading members | 4× daily |
 | **House/Senate Stock Watcher APIs** | Bulk fallback covering all 535 members if primary source is unavailable | On failure |
-| **Reddit** | Ticker mentions + sentiment from r/wallstreetbets, r/investing, r/stocks, r/options | 4× daily |
-| **News** | Headlines from Google News, Yahoo Finance, Motley Fool, Reuters, WSJ, FT | 4× daily |
+| **Reddit** | Ticker mentions + sentiment from 11 subreddits: r/wallstreetbets, r/stocks, r/investing, r/stockmarket, r/options, r/SecurityAnalysis, r/ValueInvesting, r/Dividends, r/thetagang, r/biotech, r/ETFs | 4× daily |
+| **News RSS** | Headlines from 16 sources: Bloomberg, WSJ, FT, The Economist (×2), Reuters, CNBC, AP Business, Barron's, Benzinga, MarketWatch, Seeking Alpha, Motley Fool, Yahoo Finance, Google News, HBR | 4× daily |
 
 The 194 individually tracked politicians are those with active trading histories on CapitolTrades. The remaining ~341 members either file no disclosures, hold only index funds, or trade through blind trusts — but their disclosures are still captured via the main feed when they do appear.
 

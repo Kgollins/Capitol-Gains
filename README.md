@@ -116,9 +116,9 @@ The range $[-1, +1]$ is guaranteed because $S_{sent}$ is a weighted average of t
 
 Momentum captures whether attention to a ticker is accelerating or fading. Let $r_{recent}$ be the average daily mention rate over the current lookback window and $r_{base}$ be the average daily rate over the prior three days. The ratio $r_{recent}/r_{base}$ measures how much faster (or slower) chatter is arriving now. Subtracting 1 centers the scale so that 0 means no change, positive means acceleration, and negative means deceleration. The `clip` prevents outlier ratios from dominating:
 
-$$S_{mom} = \text{clip}\!\left(\frac{r_{recent}}{r_{base}} - 1,\; -1,\; +1\right)$$
+$$S_{mom} = \max\!\left(-1,\;\min\!\left(+1,\;\frac{r_{recent}}{r_{base}} - 1\right)\right)$$
 
-*Example:* $r_{recent} = 15$ mentions/day, $r_{base} = 10$ mentions/day → $S_{mom} = \text{clip}(0.5, -1, +1) = 0.5$.
+*Example:* $r_{recent} = 15$ mentions/day, $r_{base} = 10$ mentions/day → $S_{mom} = \max(-1, \min(1, 0.5)) = 0.5$.
 
 When the concurrent sentiment score $S_{sent} < 0$, the momentum score is sign-flipped before entering the composite: an accelerating spike in bearish chatter is treated as a negative signal, not a positive one. If $r_{base} = 0$ (no prior baseline), $S_{mom} = 0$.
 
@@ -368,7 +368,7 @@ Portfolio constraints: max 40 positions, 80% deployed (40% in risk-off mode), 5%
 
 Stop distance is ATR-based and scaled by market cap tier, giving smaller and more volatile stocks more room to breathe:
 
-$$\text{stop} = P_{entry} \times \left(1 - \text{clip}\!\left(\text{ATR\%} \times m_{cap},\; 3\%,\; 15\%\right)\right)$$
+$$\text{stop} = P_{entry} \times \left(1 - \max\!\left(3\%,\;\min\!\left(15\%,\;\text{ATR\%} \times m_{cap}\right)\right)\right)$$
 
 The `clip` enforces a 3% floor (stops are never so tight that normal intraday noise triggers them) and a 15% ceiling (no position held through more than a 15% drawdown).
 

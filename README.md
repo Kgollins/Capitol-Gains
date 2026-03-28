@@ -4,6 +4,8 @@
 
 Capitol-Gains is a self-hosted market intelligence and automated trading system that cross-references congressional stock disclosures with Reddit sentiment to surface asymmetric trade ideas — then acts on them. This document describes the theory, data pipeline, scoring model, execution layer, and our ongoing empirical study.
 
+> **Coverage:** All STOCK Act disclosures from every filing member of Congress, with deep per-profile history for 194 active traders.
+
 **Live dashboard:** [https://kgollins.github.io/Capitol-Gains/](https://kgollins.github.io/Capitol-Gains/)
 
 ---
@@ -46,9 +48,13 @@ A Raspberry Pi collects data four times daily (8:30am, 11am, 2pm, 10pm Central) 
 
 | Source | What is captured | Update frequency |
 |---|---|---|
-| **CapitolTrades.com** | Buy/sell disclosures from 194 tracked members of Congress | 4× daily |
+| **CapitolTrades.com** (main feed) | All recent STOCK Act disclosures across every filing member | 4× daily |
+| **CapitolTrades.com** (individual profiles) | Full trade history for 194 actively trading members | 4× daily |
+| **House/Senate Stock Watcher APIs** | Bulk fallback covering all 535 members if primary source is unavailable | On failure |
 | **Reddit** | Ticker mentions + sentiment from r/wallstreetbets, r/investing, r/stocks, r/options | 4× daily |
-| **News** | Headlines from Google News, Yahoo Finance, Motley Fool | 4× daily |
+| **News** | Headlines from Google News, Yahoo Finance, Motley Fool, Reuters, WSJ, FT | 4× daily |
+
+The 194 individually tracked politicians are those with active trading histories on CapitolTrades. The remaining ~341 members either file no disclosures, hold only index funds, or trade through blind trusts — but their disclosures are still captured via the main feed when they do appear.
 
 All data is stored in a SQLite database (`market_intel.db`) and synced to a Windows analysis machine via Samba share.
 

@@ -368,7 +368,7 @@ Portfolio constraints: max 40 positions, 80% deployed (40% in risk-off mode), 5%
 
 Stop distance is ATR-based and scaled by market cap tier, giving smaller and more volatile stocks more room to breathe:
 
-$$\text{stop} = P_{entry} \times \left(1 - \max\!\left(3\%,\;\min\!\left(15\%,\;\text{ATR\%} \times m_{cap}\right)\right)\right)$$
+$$\text{stop} = P_{entry} \times \left(1 - \max\left(0.03,\;\min\left(0.15,\;\text{ATR} \times m_{cap}\right)\right)\right)$$
 
 The `clip` enforces a 3% floor (stops are never so tight that normal intraday noise triggers them) and a 15% ceiling (no position held through more than a 15% drawdown).
 

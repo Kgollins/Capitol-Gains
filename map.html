@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en" data-scheme-default="mist">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The ripple map</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="map-page">
+<canvas class="map-scene" data-fractal="scene" aria-hidden="true"></canvas>
+<canvas class="map-veil" data-mm="veil" aria-hidden="true"></canvas>
+<canvas class="map-field" data-mm="field" role="img" aria-label="The ripple map: about 900 stocks as caps, joined by their links."></canvas>
+
+<div class="map-navbar map-float">
+  <div class="site-bar">
+    <a class="site-mark" href="./"><canvas data-fractal="mandel" aria-hidden="true"></canvas>Market Map</a>
+    <nav class="site-nav" aria-label="Pages">
+      <a href="map.html" aria-current="page">Map</a>
+      <a href="lanes.html">Lanes</a>
+      <a href="performance.html">Performance</a>
+      <a href="shadows.html">Shadows</a>
+    </nav>
+  </div>
+</div>
+<div class="map-top">
+  <header class="map-say">
+    <h1 data-mm="head">Reading the map…</h1>
+    <p class="map-sub" data-mm="sub"></p>
+    <p class="map-what">Each dot is a stock. A large gold dot had earnings, a news burst or a big price move that day. A coloured thread marks a ripple: unusually many linked stocks moved the same way within 2 trading days.</p>
+    <p class="map-notes" data-mm="empty" hidden></p>
+    <p class="map-ripple" data-mm="ripple" hidden></p>
+    <div class="map-folds">
+      <details class="map-fold map-float" data-fold="key" open>
+        <summary class="textbutton map-fold-head">Key</summary>
+        <ul class="map-key" data-mm="key" aria-label="What the marks mean">
+          <li class="map-key-what">Each dot is a stock. A large gold dot had earnings, a news burst or a big price move that day. A coloured thread marks a ripple: unusually many linked stocks moved the same way within 2 trading days.</li>
+          <li><canvas data-k="quiet" aria-hidden="true"></canvas>quiet: normal attention (Wikipedia views and news)</li>
+          <li><canvas data-k="loud" aria-hidden="true"></canvas>loud: attention at least 2 times its 90-day level</li>
+          <li><canvas data-k="tired" aria-hidden="true"></canvas>tired: attention rose, then stalled or faded</li>
+          <li><canvas data-k="held" aria-hidden="true"></canvas><span><span data-k-label="held">held</span><span data-k-suffix="held">: in the paper account after that day's trades</span></span></li>
+          <li><canvas data-k="unknown" aria-hidden="true"></canvas>no reading: no closing price that day</li>
+          <li class="map-key-break" aria-hidden="true"></li>
+          <li><canvas data-k="catalyst" aria-hidden="true"></canvas>catalyst: earnings, a news burst, or a move of 2 usual daily moves or more</li>
+          <li class="map-key-wide"><canvas data-k="with" aria-hidden="true"></canvas>moved with it: a linked stock followed within 2 trading days</li>
+          <li class="map-key-wide"><canvas data-k="against" aria-hidden="true"></canvas>turned against it: it followed, then reversed</li>
+          <li class="map-key-wide map-key-note">The map does not tell which of the same-day catalysts moved a linked stock.</li>
+          <li class="map-key-wide"><canvas data-k="earlier" aria-hidden="true"></canvas>fainter: ripples that arrived before the day shown</li>
+          <li class="map-key-wide"><canvas data-k="died" aria-hidden="true"></canvas>died out: no ripple within 5 trading days</li>
+          <li class="map-key-wide" hidden><canvas data-k="pale" aria-hidden="true"></canvas>pale threads: two stocks that are each other's closest links. Others show on hover or zoom.</li>
+          <li class="map-key-wide" hidden><canvas data-k="waiting" aria-hidden="true"></canvas>the other catalysts' links: drawn when you pick one</li>
+        </ul>
+      </details>
+      <details class="map-fold map-float" data-fold="tools" open>
+        <summary class="textbutton map-fold-head">Show and find</summary>
+        <div class="map-tools" data-mm="tools" hidden>
+          <div class="map-tool-row">
+            <button class="textbutton" data-tool="news" type="button" aria-pressed="true" title="Links from news stories that named both companies">News links</button>
+            <button class="textbutton" data-tool="comove" type="button" aria-pressed="true" title="Links between stocks whose daily moves matched over about a year">Price links</button>
+            <button class="textbutton" data-tool="mine" type="button" aria-pressed="false">Held stocks and links</button>
+            <button class="textbutton" data-tool="find" type="button" aria-pressed="false" aria-controls="map-find">Find a stock</button>
+            <button class="textbutton map-reset" data-tool="reset" type="button">Reset view</button>
+          </div>
+          <div class="map-tool-drop">
+            <div class="map-find" id="map-find" data-tool="findbox" hidden>
+              <input class="map-find-input" data-tool="q" type="search" maxlength="60" autocomplete="off" spellcheck="false" placeholder="a ticker or a name" aria-label="Find a stock by its ticker or its name">
+              <ul class="map-found" data-tool="found" aria-label="Stocks found"></ul>
+            </div>
+            <div class="map-tool-notes" data-tool="notes" hidden></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </header>
+  <aside class="map-record" data-mm="record" aria-label="The record of a stock" hidden></aside>
+  <details class="map-fold map-fold-dials map-float" data-fold="dials" open>
+    <summary class="textbutton map-fold-head">Dials</summary>
+    <section class="map-dials" data-mm="dials" aria-label="Dials"></section>
+  </details>
+</div>
+
+<div class="map-labels" data-mm="labels" aria-hidden="true"></div>
+<div class="map-captions" data-mm="captions"></div>
+<div class="vh" data-mm="alt"></div>
+
+<div class="map-bottom">
+  <section class="map-core" data-mm="core" aria-label="Time">
+    <button class="map-play" data-core="play" type="button" aria-label="Play through history" aria-pressed="false" disabled>
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path data-core="icon" d="M4.5 2.5 L13 8 L4.5 13.5 Z" fill="currentColor"/></svg>
+    </button>
+    <div class="map-core-body">
+      <span class="map-core-note" data-core="note" hidden></span>
+      <span class="map-core-recent" data-core="recent" hidden>recent days</span>
+      <span class="map-core-when" data-core="when"><span data-core="time"></span> <span class="map-core-clock" data-core="clock" hidden>time set by the link</span></span>
+      <canvas class="map-core-strip" data-core="strip" aria-hidden="true"></canvas>
+      <input class="map-core-range" data-core="range" type="range" min="0" max="1" step="1" value="1" aria-label="Move through history" disabled>
+      <div class="map-core-years" data-core="years" aria-hidden="true"></div>
+    </div>
+  </section>
+  <footer class="map-foot" data-mm="foot">
+    <button class="textbutton map-speed" data-core="speed" type="button" title="How fast play moves through the days">speed 1x</button>
+    <p class="quietbadge">this page places no orders</p>
+    <p class="quietbadge" data-foot="demo" hidden>made-up data for building the page</p>
+    <a href="lanes.html#scoreboard" data-foot="scoreboard">Scoreboard</a>
+  </footer>
+</div>
+
+<aside class="map-board" data-mm="scoreboard" aria-labelledby="map-board-title" hidden></aside>
+
+<noscript><p class="map-noscript">The ripple map needs JavaScript to draw.</p></noscript>
+<script src="world.js"></script>
+<script src="fractal.js"></script>
+<script src="map_core.js"></script>
+<script src="map_draw.js"></script>
+<script src="map_page.js"></script>
+</body>
+</html>

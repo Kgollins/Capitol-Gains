@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-scheme-default="mist">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Performance</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="lanes-page perf-page">
+<canvas class="page-ground" data-fractal="scene" aria-hidden="true"></canvas>
+<a class="skip" href="#perf-main">Skip to the chart</a>
+<div class="lanes-wrap">
+  <header>
+    <div class="site-bar lanes-bar">
+      <a class="site-mark" href="./"><canvas data-fractal="mandel" aria-hidden="true"></canvas>Market Map</a>
+      <nav class="site-nav" aria-label="Pages">
+        <a href="map.html">Map</a>
+        <a href="lanes.html">Lanes</a>
+        <a href="performance.html" aria-current="page">Performance</a>
+        <a href="shadows.html">Shadows</a>
+      </nav>
+    </div>
+    <canvas class="perf-rule" data-fractal="rule" aria-hidden="true"></canvas>
+    <div class="lanes-head">
+      <h1>Performance</h1>
+      <p class="badges">
+        <span class="quietbadge">Paper account: no real money</span>
+        <span class="quietbadge" id="perf-fixture" hidden>Test copy of the record, not the live file</span>
+      </p>
+    </div>
+    <p class="lanes-lede">Each lane trades its own slice of a paper account. This page plots the value of each lane against the Nasdaq-100, through the QQQ fund that tracks it.</p>
+    <p class="perf-facts" id="perf-facts" hidden></p>
+    <p class="perf-updated" id="perf-updated" hidden></p>
+  </header>
+
+  <main class="perf-main" id="perf-main" tabindex="-1">
+    <p class="state" id="perf-state">Reading the performance file…</p>
+    <noscript><p class="state">The chart and the table need JavaScript.</p></noscript>
+
+    <section id="perf-lanes" aria-labelledby="perf-lanes-title" hidden>
+      <h2 id="perf-lanes-title">Every lane against the Nasdaq-100</h2>
+      <div class="pf-chips" id="perf-chips" role="group" aria-label="Pick a lane"></div>
+      <ul class="perf-key" aria-label="What the lines mean">
+        <li><i class="perf-sw perf-sw-lane" aria-hidden="true"></i>Picked lane</li>
+        <li><i class="perf-sw perf-sw-faint" aria-hidden="true"></i>Other lanes</li>
+        <li id="perf-key-ndx"><i class="perf-sw perf-sw-ndx" aria-hidden="true"></i>Nasdaq-100 (QQQ)</li>
+      </ul>
+      <p class="vh" id="perf-picked" aria-live="polite"></p>
+      <div class="perf-chart" id="perf-chart"></div>
+      <p class="perf-note" id="perf-note" hidden></p>
+    </section>
+
+    <section id="perf-rank" aria-labelledby="perf-rank-title" hidden>
+      <h2 id="perf-rank-title">Lanes ranked by return</h2>
+      <div class="perf-table-box" tabindex="0" role="region" aria-labelledby="perf-rank-title">
+        <table class="perf-table">
+          <thead>
+            <tr><th scope="col">Rank</th><th scope="col">Lane</th><th scope="col" id="perf-value-head">Value</th><th scope="col">Return</th><th scope="col">Against Nasdaq-100</th><th scope="col">In stocks</th></tr>
+          </thead>
+          <tbody id="perf-rows"></tbody>
+          <tfoot id="perf-foot"></tfoot>
+        </table>
+      </div>
+      <p class="perf-note" id="perf-resplit" hidden></p>
+    </section>
+
+    <section id="perf-read" aria-labelledby="perf-read-title">
+      <h2 id="perf-read-title">How to read the chart</h2>
+      <div class="prose">
+        <p>Each line starts at 100 on the lane's first close, when its slice held only cash. A value of 95 means that the lane lost 5% of its slice. The Nasdaq-100 line starts at 100 on the first day of the record.</p>
+        <p>Pick a lane with its button or its row in the table to show it in colour. The other lanes stay grey. A lane with no trades yet holds only cash, so its line stays at 100.</p>
+        <p>Select a lane's name in the table to read what the lane does. Its description opens on this page.</p>
+        <p>In the table, "Against Nasdaq-100" is the lane's return minus the Nasdaq-100's return over the same days, in percentage points. "In stocks" is the part of the slice held in stocks at the last close.</p>
+        <p>During a trading day, the last point is the day so far: each lane's holdings at the latest prices, and QQQ at its latest price. It updates every 10 minutes. After the close, the lane's own mark of the close replaces it.</p>
+        <p>A few days of results cannot show skill. The Lanes page explains how the lab compares each lane with its random twins.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="pf-dialog" id="perf-about" aria-labelledby="perf-about-title">
+    <div class="pf-dialog-head">
+      <h2 id="perf-about-title">Lane</h2>
+      <button type="button" class="textbutton pf-close" id="perf-about-close">Close</button>
+    </div>
+    <div class="pf-dialog-body" id="perf-about-body"></div>
+  </dialog>
+
+  <footer class="lanes-foot">
+    <span>Lane values come from the lane's own mark of each close; during a trading day the last point uses the latest prices. QQQ values are adjusted daily closes from the Alpaca data API.</span>
+    <span>Nothing on this page trades.</span>
+  </footer>
+</div>
+<script src="world.js"></script>
+<script src="fractal.js"></script>
+<script src="performance.js"></script>
+</body>
+</html>

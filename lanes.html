@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" data-scheme-default="mist">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lanes</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body class="lanes-page">
+<canvas class="page-ground" data-fractal="scene" aria-hidden="true"></canvas>
+<a class="skip" href="#lanes-main">Skip to the lanes</a>
+<div class="lanes-wrap">
+  <header>
+    <div class="site-bar lanes-bar">
+      <a class="site-mark" href="./"><canvas data-fractal="mandel" aria-hidden="true"></canvas>Market Map</a>
+      <nav class="site-nav" aria-label="Pages">
+        <a href="map.html">Map</a>
+        <a href="lanes.html" aria-current="page">Lanes</a>
+        <a href="performance.html">Performance</a>
+        <a href="shadows.html">Shadows</a>
+      </nav>
+    </div>
+    <figure class="lanes-figure">
+      <canvas class="lanes-band" data-fractal="mandel" data-centre="-0.7465,0.105" data-span="0.028" data-iter="600" data-turn aria-hidden="true"></canvas>
+      <figcaption class="lanes-band-cap"><span class="fignum">Plate 0</span> The Mandelbrot set along the valley at <span class="math">c</span> = &minus;0.7465 + 0.105<span class="math">i</span>, turned so the imaginary axis runs across, a window 0.028 high, up to 600 steps of <span class="math">z</span> &rarr; <span class="math">z</span><sup>2</sup> + <span class="math">c</span>. Computed in your browser. <span class="figkind">Generated: decoration, not data.</span></figcaption>
+    </figure>
+    <div class="lanes-head">
+      <h1>Lanes</h1>
+      <p class="badges">
+        <span class="quietbadge">Paper account: no real money</span>
+        <span class="quietbadge" id="lanes-demo" hidden>Made-up scoreboard for building the page</span>
+      </p>
+    </div>
+    <p class="lanes-lede">The account trades <span class="n-lanes">ten</span> lanes. A lane is a fixed rule that picks stocks after every close and trades its own slice of a paper account at the broker. Each rule was frozen before any result counted, and a change starts a new version from zero.</p>
+  </header>
+
+  <div class="lanes-body">
+    <details class="lanes-toc" id="lanes-toc" open>
+      <summary><h2>On this page</h2></summary>
+      <nav aria-label="On this page">
+      <ol>
+        <li><a href="#shared"><span class="fig"></span>What every lane shares</a></li>
+        <li><a href="#committee_nightly"><span class="fig">1</span>Lens committee</a></li>
+        <li><a href="#member_company_nightly"><span class="fig">2</span>Company figures</a></li>
+        <li><a href="#member_disease_nightly"><span class="fig">3</span>Spreading attention</a></li>
+        <li><a href="#member_aftershocks_nightly"><span class="fig">4</span>Aftershocks</a></li>
+        <li><a href="#member_options_nightly"><span class="fig">5</span>Calm options</a></li>
+        <li><a href="#member_flocking_nightly"><span class="fig">6</span>Flocking</a></li>
+        <li><a href="#sector_ahead_nightly"><span class="fig">7</span>Sector attention ahead</a></li>
+        <li><a href="#sector_ahead_sound_nightly"><span class="fig">8</span>Sector attention, sound only</a></li>
+        <li><a href="#insider_conviction"><span class="fig">9</span>Insider conviction</a></li>
+        <li><a href="#reader_nightly"><span class="fig">10</span>News reader (new)</a></li>
+        <li><a href="#judged"><span class="fig"></span>How a lane is judged</a></li>
+        <li><a href="#scoreboard"><span class="fig"></span>The scoreboard</a></li>
+      </ol>
+      </nav>
+    </details>
+
+    <main class="lanes-main" id="lanes-main" tabindex="-1">
+      <section id="shared" aria-labelledby="shared-title">
+        <h2 id="shared-title">What every lane shares</h2>
+        <div class="prose">
+          <p>The <span class="n-lanes">ten</span> lanes use the same money rules and the same limits. Only what they look for, and how long they hold, is different.</p>
+        </div>
+        <table class="rules">
+          <tbody>
+            <tr><th scope="row">Money</th><td>The paper account is cut into <span class="n-lanes">ten</span> equal slices, one for each lane. A lane never spends another lane's slice.</td></tr>
+            <tr><th scope="row">Position size</th><td>One position is one twelfth of the lane's slice, in whole shares.</td></tr>
+            <tr><th scope="row">When it decides</th><td>After every trading day's close. The orders go to the broker a few minutes before the next day's close.</td></tr>
+            <tr><th scope="row">How many a night</th><td>At most 3 new stocks. At most 12 stocks at once, and at most 6 in one sector. It never buys a stock it already holds.</td></tr>
+            <tr><th scope="row">When it sells</th><td>At the close after its holding time: 5 or 20 trading days, given for each lane below. It sells earlier if the stock closes at or below 80% of its buying price.</td></tr>
+            <tr><th scope="row">Which stocks</th><td>Most lanes look only at little-known quiet stocks. Quiet means the stock gets little attention that day. Little-known means its fame score, from its Wikipedia views over the past year, is at most 0.67 on a scale of 0 to 1.</td></tr>
+            <tr><th scope="row">Lens</th><td>A lens is a frozen forecast model built from the map's record. Five lanes read a lens, and the committee counts their votes. No lens has passed its test yet.</td></tr>
+            <tr><th scope="row">Judged against</th><td>Random twins: 20 pretend accounts with the same limits that buy on the same nights, but pick their stocks at random from the same pool. A lane shows skill only if it beats its own twins. The S&amp;P 500 is the second yardstick.</td></tr>
+            <tr><th scope="row">Gates</th><td>A lane normally trades only after it passes two tests, called gates: a check on years held back for that purpose, and 60 days of live results. On 15 November 2026 the owner let these lanes trade on paper before passing either gate.</td></tr>
+            <tr><th scope="row">First orders</th><td>17 November 2026.</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <canvas class="lanes-break" data-fractal="rule" aria-hidden="true"></canvas>
+
+      <section aria-labelledby="lanes-title">
+        <h2 id="lanes-title" class="vh">The lanes</h2>
+        <ol class="lane-list">
+          <li class="lane" id="committee_nightly" data-board="Lens committee (nightly) (version 1)">
+            <!-- plate:committee_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="Six members, six made-up stocks: A and C have two or more votes and are bought."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><rect class="dg-pick" x="134" y="16" width="24" height="186"/><rect class="dg-pick" x="194" y="16" width="24" height="186"/><text x="146.0" y="28.0" text-anchor="middle" class="dg-head">A</text><text x="176.0" y="28.0" text-anchor="middle" class="dg-head">B</text><text x="206.0" y="28.0" text-anchor="middle" class="dg-head">C</text><text x="236.0" y="28.0" text-anchor="middle" class="dg-head">D</text><text x="266.0" y="28.0" text-anchor="middle" class="dg-head">E</text><text x="296.0" y="28.0" text-anchor="middle" class="dg-head">F</text><text x="130.0" y="52.0" text-anchor="end" class="dg-lab">Company figures</text><circle class="dg-cyan" cx="146" cy="48" r="6"/><circle class="dg-off" cx="176" cy="48" r="6"/><circle class="dg-cyan" cx="206" cy="48" r="6"/><circle class="dg-off" cx="236" cy="48" r="6"/><circle class="dg-off" cx="266" cy="48" r="6"/><circle class="dg-off" cx="296" cy="48" r="6"/><text x="130.0" y="74.0" text-anchor="end" class="dg-lab">Spreading attention</text><circle class="dg-cyan" cx="146" cy="70" r="6"/><circle class="dg-off" cx="176" cy="70" r="6"/><circle class="dg-off" cx="206" cy="70" r="6"/><circle class="dg-cyan" cx="236" cy="70" r="6"/><circle class="dg-off" cx="266" cy="70" r="6"/><circle class="dg-off" cx="296" cy="70" r="6"/><text x="130.0" y="96.0" text-anchor="end" class="dg-lab">Aftershocks</text><circle class="dg-off" cx="146" cy="92" r="6"/><circle class="dg-cyan" cx="176" cy="92" r="6"/><circle class="dg-off" cx="206" cy="92" r="6"/><circle class="dg-off" cx="236" cy="92" r="6"/><circle class="dg-off" cx="266" cy="92" r="6"/><circle class="dg-off" cx="296" cy="92" r="6"/><text x="130.0" y="118.0" text-anchor="end" class="dg-lab">Calm options</text><circle class="dg-cyan" cx="146" cy="114" r="6"/><circle class="dg-off" cx="176" cy="114" r="6"/><circle class="dg-cyan" cx="206" cy="114" r="6"/><circle class="dg-off" cx="236" cy="114" r="6"/><circle class="dg-cyan" cx="266" cy="114" r="6"/><circle class="dg-off" cx="296" cy="114" r="6"/><text x="130.0" y="140.0" text-anchor="end" class="dg-lab">Flocking</text><circle class="dg-off" cx="146" cy="136" r="6"/><circle class="dg-off" cx="176" cy="136" r="6"/><circle class="dg-cyan" cx="206" cy="136" r="6"/><circle class="dg-off" cx="236" cy="136" r="6"/><circle class="dg-off" cx="266" cy="136" r="6"/><circle class="dg-off" cx="296" cy="136" r="6"/><text x="130.0" y="162.0" text-anchor="end" class="dg-lab">Sector attention</text><circle class="dg-off" cx="146" cy="158" r="6"/><circle class="dg-off" cx="176" cy="158" r="6"/><circle class="dg-off" cx="206" cy="158" r="6"/><circle class="dg-off" cx="236" cy="158" r="6"/><circle class="dg-off" cx="266" cy="158" r="6"/><circle class="dg-cyan" cx="296" cy="158" r="6"/><line class="dg-rule" x1="10" y1="174" x2="310" y2="174"/><text x="130.0" y="192.0" text-anchor="end" class="dg-lab">votes</text><text x="146.0" y="192.0" text-anchor="middle" class="dg-lime-t">3</text><text x="176.0" y="192.0" text-anchor="middle" class="dg-dim">1</text><text x="206.0" y="192.0" text-anchor="middle" class="dg-lime-t">3</text><text x="236.0" y="192.0" text-anchor="middle" class="dg-dim">1</text><text x="266.0" y="192.0" text-anchor="middle" class="dg-dim">1</text><text x="296.0" y="192.0" text-anchor="middle" class="dg-dim">1</text><text x="310.0" y="214.0" text-anchor="end" class="dg-lime-t">bought: A and C</text></svg><figcaption><b>Lens committee</b>: generated diagram, made-up stocks. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:committee_nightly -->
+            <div>
+              <h3><span class="fig">1</span>Lens committee</h3>
+              <p class="lane-claim">It buys a stock when at least two of six other lanes favour it on the same night.</p>
+              <!-- maths:committee_nightly --><div class="lane-math"><p class="eq"><i>v</i>(<i>s</i>) = &#8721;<sub><i>m</i> = 1</sub><sup>6</sup> 1[<i>s</i> &#8712; <i>L<sub>m</sub></i>]</p><p class="eq-note"><i>L<sub>m</sub></i> is member <i>m</i>'s list of its 10 best stocks that night. It buys every stock with <i>v</i>(<i>s</i>) &#8805; 2 that it does not hold, if at least 3 of the 6 members have their data. Order: most votes, then the lowest sum of places on the lists.</p></div><!-- /maths:committee_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>Votes. Six lanes each name their 10 best stocks: Company figures, Spreading attention, Aftershocks, Calm options, Flocking and Sector attention ahead. A stock on a list gets one vote.</dd>
+              <dt>Buys</dt><dd>Stocks with two votes or more, most votes first. If fewer than 3 voters have their data that night, it buys nothing.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="member_company_nightly" data-board="Member: Company figures (nightly) (version 1)">
+            <!-- plate:member_company_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="Made-up stocks on a plane of cheapness and sales growth; the cheapest third with growth above zero is shaded, the fastest growers ranked."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><rect class="dg-zone" x="213" y="22" width="87" height="108"/><line class="dg-ax" x1="40.0" y1="190.0" x2="304.0" y2="190.0"/><path class="dg-ax dg-fillink" d="M304.0,190.0 L298.6,192.6 L298.6,187.4 Z"/><line class="dg-ax" x1="40.0" y1="190.0" x2="40.0" y2="18.0"/><path class="dg-ax dg-fillink" d="M40.0,18.0 L42.6,23.4 L37.4,23.4 Z"/><text x="172.0" y="206.0" text-anchor="middle" class="dg-dim">cheaper in its sector (earnings yield)</text><text class="dg-dim" transform="translate(30,104.0) rotate(-90)" text-anchor="middle">sales growth</text><line class="dg-dash" x1="40" y1="130" x2="300" y2="130"/><text x="296.0" y="126.0" text-anchor="end" class="dg-dim">growth 0</text><line class="dg-dash" x1="213" y1="22" x2="213" y2="190"/><text x="217.3" y="34.0" text-anchor="start" class="dg-dim">cheapest third</text><circle class="dg-off" cx="203.1" cy="87.2" r="3.6"/><circle class="dg-off" cx="126.8" cy="49.5" r="3.6"/><circle class="dg-off" cx="129.1" cy="138.5" r="3.6"/><circle class="dg-cyan" cx="247.0" cy="99.9" r="3.6"/><circle class="dg-off" cx="225.7" cy="150.8" r="3.6"/><circle class="dg-off" cx="85.3" cy="34.5" r="3.6"/><circle class="dg-off" cx="120.6" cy="40.6" r="3.6"/><circle class="dg-off" cx="135.6" cy="178.9" r="3.6"/><circle class="dg-off" cx="176.1" cy="45.8" r="3.6"/><circle class="dg-cyan" cx="239.0" cy="58.9" r="3.6"/><circle class="dg-cyan" cx="239.4" cy="55.7" r="3.6"/><circle class="dg-cyan" cx="250.3" cy="74.8" r="3.6"/><circle class="dg-off" cx="45.2" cy="149.9" r="3.6"/><circle class="dg-off" cx="105.7" cy="79.3" r="3.6"/><circle class="dg-off" cx="108.8" cy="166.7" r="3.6"/><circle class="dg-off" cx="62.4" cy="141.5" r="3.6"/><circle class="dg-off" cx="69.9" cy="96.8" r="3.6"/><circle class="dg-off" cx="261.4" cy="155.4" r="3.6"/><circle class="dg-off" cx="72.4" cy="170.6" r="3.6"/><circle class="dg-off" cx="134.1" cy="125.5" r="3.6"/><circle class="dg-off" cx="142.4" cy="37.4" r="3.6"/><circle class="dg-off" cx="54.0" cy="36.8" r="3.6"/><circle class="dg-off" cx="149.5" cy="104.1" r="3.6"/><circle class="dg-cyan" cx="254.2" cy="93.3" r="3.6"/><circle class="dg-off" cx="62.6" cy="80.7" r="3.6"/><circle class="dg-off" cx="161.3" cy="81.0" r="3.6"/><circle class="dg-off" cx="85.7" cy="51.2" r="3.6"/><circle class="dg-off" cx="167.9" cy="140.3" r="3.6"/><circle class="dg-off" cx="135.5" cy="167.1" r="3.6"/><circle class="dg-cyan" cx="242.2" cy="53.1" r="3.6"/><circle class="dg-lime" cx="242.2" cy="53.1" r="5"/><text x="233.2" y="57.1" text-anchor="end" class="dg-lime-t">1</text><circle class="dg-lime" cx="239.4" cy="55.7" r="5"/><text x="230.4" y="59.7" text-anchor="end" class="dg-lime-t">2</text><circle class="dg-lime" cx="239.0" cy="58.9" r="5"/><text x="230.0" y="62.9" text-anchor="end" class="dg-lime-t">3</text></svg><figcaption><b>Company figures</b>: generated diagram, made-up stocks. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:member_company_nightly -->
+            <div>
+              <h3><span class="fig">2</span>Company figures</h3>
+              <p class="lane-claim">It buys little-known quiet stocks of sound, cheap companies whose sales grow fastest.</p>
+              <!-- maths:member_company_nightly --><div class="lane-math"><p class="eq"><i>g</i> = <span class="frac"><i>S</i><sub>last 4 quarters</sub> / <i>S</i><sub>4 quarters before</sub></span> &#8722; 1 &#8805; 0</p><p class="eq-note">Sound: <i>g</i> &#8805; 0 and no miss in the newest earnings report (both rounded to 0.1 point). Cheap: in the top third of its sector by earnings yield <i>E</i>/<i>P</i>. Pool: fame &#8804; 0.67 and quiet. It buys its 10 best by <i>g</i>, highest first.</p></div><!-- /maths:member_company_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>Sound companies: sales of the last four quarters at or above the four before, and no miss in the newest earnings report. Cheap companies: the cheapest third of their sector by earnings yield. It reads no lens.</dd>
+              <dt>Buys</dt><dd>Its 10 best by sales growth, fastest first. It is also one of the committee's six voters.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="member_disease_nightly" data-board="Member: Spreading attention (nightly) (version 1)">
+            <!-- plate:member_disease_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="A quiet stock with two loud linked stocks: the lens's chance that it turns loud is above the plain guess."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><line class="dg-link-hot" x1="52" y1="52" x2="118" y2="112"/><line class="dg-link-hot" x1="190" y1="60" x2="118" y2="112"/><line class="dg-rule" x1="66" y1="168" x2="118" y2="112"/><line class="dg-rule" x1="196" y1="166" x2="118" y2="112"/><line class="dg-rule" x1="30" y1="110" x2="52" y2="52"/><line class="dg-rule" x1="150" y1="196" x2="66" y2="168"/><line class="dg-rule" x1="190" y1="60" x2="196" y2="166"/><circle class="dg-target" cx="118" cy="112" r="9"/><circle class="dg-mag" cx="52" cy="52" r="6"/><circle class="dg-off" cx="66" cy="168" r="6"/><circle class="dg-mag" cx="190" cy="60" r="6"/><circle class="dg-off" cx="196" cy="166" r="6"/><circle class="dg-off" cx="30" cy="110" r="6"/><circle class="dg-off" cx="150" cy="196" r="6"/><text x="118.0" y="136.0" text-anchor="middle" class="dg-lab">quiet stock</text><text x="52.0" y="38.0" text-anchor="middle" class="dg-mag-t">loud</text><text x="190.0" y="46.0" text-anchor="middle" class="dg-mag-t">loud</text><text x="12.0" y="214.0" text-anchor="start" class="dg-lab">n = 2 linked stocks loud today</text><rect class="dg-uvbar" x="246" y="136" width="24" height="34"/><text x="258.0" y="184.0" text-anchor="middle" class="dg-dim">plain</text><rect class="dg-cyanbar" x="282" y="100" width="24" height="70"/><text x="294.0" y="184.0" text-anchor="middle" class="dg-dim">lens</text><line class="dg-ax" x1="236" y1="170" x2="314" y2="170"/><text x="275.0" y="30.0" text-anchor="middle" class="dg-lab">chance it turns</text><text x="275.0" y="44.0" text-anchor="middle" class="dg-lab">loud in 5 days</text><line class="dg-lime-s" x1="294.0" y1="132.0" x2="294.0" y2="102.0"/><path class="dg-lime-s dg-fillink" d="M294.0,102.0 L296.6,107.4 L291.4,107.4 Z"/><text x="275.0" y="204.0" text-anchor="middle" class="dg-lime-t">score = the gap</text></svg><figcaption><b>Spreading attention</b>: generated diagram, made-up stocks. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:member_disease_nightly -->
+            <div>
+              <h3><span class="fig">3</span>Spreading attention</h3>
+              <p class="lane-claim">It buys quiet stocks that their links make likelier to turn loud than their own habit says.</p>
+              <!-- maths:member_disease_nightly --><div class="lane-math"><p class="eq"><i>p</i> = &#963;(<i>b</i><sub>0</sub> + <b><i>b</i></b>&#183;<b><i>x</i></b><sub>own</sub> + <i>c</i><sub>news</sub> log(1 + <i>n</i><sub>news</sub>) + <i>c</i><sub>co</sub> log(1 + <i>n</i><sub>co</sub>))</p><p class="eq-note"><i>p</i> is the chance the stock turns loud within 5 trading days, &#963; the logistic curve. <b><i>x</i></b><sub>own</sub> is the stock's own history: loud days and onsets in the last 60 trading days, tired today, fame, and the market's loud share. <i>n</i> counts the stocks among its 10 strongest links, by shared news or by moving together, that are loud today. The plain guess drops the two link terms. Score: <i>p</i><sub>lens</sub> &#8722; <i>p</i><sub>plain</sub> &gt; 0.</p></div><!-- /maths:member_disease_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>The disease lens forecasts each day the chance that a stock turns loud. The lane takes that chance less the chance from the stock's own habit: the extra that its links add.</dd>
+              <dt>Buys</dt><dd>Its 10 best by that extra chance, only when the extra is above 0. It is also one of the committee's six voters.</dd>
+              <dt>Holds</dt><dd>5 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="member_aftershocks_nightly" data-board="Member: Aftershocks (nightly) (version 1)">
+            <!-- plate:member_aftershocks_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="Bars falling fast from day 0 to day 9: a linked catalyst counts fully today and fades by a factor of e each day."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><line class="dg-ax" x1="40.0" y1="176.0" x2="306.0" y2="176.0"/><path class="dg-ax dg-fillink" d="M306.0,176.0 L300.6,178.6 L300.6,173.4 Z"/><line class="dg-ax" x1="40.0" y1="176.0" x2="40.0" y2="22.0"/><path class="dg-ax dg-fillink" d="M40.0,22.0 L42.6,27.4 L37.4,27.4 Z"/><text x="173.0" y="206.0" text-anchor="middle" class="dg-dim">days since a linked catalyst, d</text><text class="dg-dim" transform="translate(30,99.0) rotate(-90)" text-anchor="middle">weight</text><rect class="dg-mag-bar" x="52" y="36.0" width="16" height="140.0"/><rect class="dg-cyanbar" x="77" y="124.5" width="16" height="51.5"/><rect class="dg-cyanbar" x="102" y="157.1" width="16" height="18.9"/><rect class="dg-cyanbar" x="127" y="169.0" width="16" height="7.0"/><rect class="dg-cyanbar" x="152" y="173.4" width="16" height="2.6"/><rect class="dg-cyanbar" x="177" y="175.1" width="16" height="0.9"/><rect class="dg-cyanbar" x="202" y="175.7" width="16" height="0.8"/><rect class="dg-cyanbar" x="227" y="175.9" width="16" height="0.8"/><rect class="dg-cyanbar" x="252" y="176.0" width="16" height="0.8"/><rect class="dg-cyanbar" x="277" y="176.0" width="16" height="0.8"/><text x="60.0" y="190.0" text-anchor="middle" class="dg-dim">0</text><text x="135.0" y="190.0" text-anchor="middle" class="dg-dim">3</text><text x="210.0" y="190.0" text-anchor="middle" class="dg-dim">6</text><text x="285.0" y="190.0" text-anchor="middle" class="dg-dim">9</text><text x="300" y="52" text-anchor="end" class="dg-lab">weight = e<tspan dy="-5" font-size="8">&#8722;d/&#964;</tspan><tspan dy="5">, &#964; = 1 day</tspan></text><text x="300.0" y="68.0" text-anchor="end" class="dg-dim">over the last 10 days</text><text x="300.0" y="84.0" text-anchor="end" class="dg-dim">of each stock's top 5 links</text></svg><figcaption><b>Aftershocks</b>: generated diagram of the lens's real kernel. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:member_aftershocks_nightly -->
+            <div>
+              <h3><span class="fig">4</span>Aftershocks</h3>
+              <p class="lane-claim">It buys quiet stocks that the aftershocks lens expects to meet a new catalyst soon.</p>
+              <!-- maths:member_aftershocks_nightly --><div class="lane-math"><p class="eq"><i>K</i> = log(1 + &#8721;<sub><i>d</i> = 0</sub><sup>9</sup> &#8721;<sub><i>j</i> &#8594; <i>i</i></sub> <i>c<sub>j</sub></i>(<i>t</i> &#8722; <i>d</i>) <i>e</i><sup>&#8722;<i>d</i>/&#964;</sup>), &#964; = 1</p><p class="eq-note"><i>c<sub>j</sub></i>(<i>t</i> &#8722; <i>d</i>) is 1 when linked stock <i>j</i> (one of the stock's 5 strongest links) had a catalyst <i>d</i> days ago. The lens puts <i>K</i>, one per kind of link, beside the stock's own catalyst rate, its own recent catalysts, its swing and the market's rate in a logistic model of the chance of a catalyst within 5 trading days. Score: <i>p</i><sub>lens</sub> &#8722; <i>p</i><sub>plain</sub> &gt; 0. The decay is exponential, not a power law.</p></div><!-- /maths:member_aftershocks_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>A catalyst is a burst of news or trading. The aftershocks lens forecasts each day the chance that a stock meets one. The lane takes that chance less the chance from the stock's own habit.</dd>
+              <dt>Buys</dt><dd>Its 10 best by that extra chance, only when the extra is above 0. It is also one of the committee's six voters.</dd>
+              <dt>Holds</dt><dd>5 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="member_options_nightly" data-board="Member: Calm options (nightly) (version 1)">
+            <!-- plate:member_options_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="Made-up stocks by historical and implied volatility; those whose options are priced calmest against their own swings are picked."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><line class="dg-ax" x1="40.0" y1="190.0" x2="304.0" y2="190.0"/><path class="dg-ax dg-fillink" d="M304.0,190.0 L298.6,192.6 L298.6,187.4 Z"/><line class="dg-ax" x1="40.0" y1="190.0" x2="40.0" y2="18.0"/><path class="dg-ax dg-fillink" d="M40.0,18.0 L42.6,23.4 L37.4,23.4 Z"/><text x="172.0" y="206.0" text-anchor="middle" class="dg-dim">how much it moved lately (historical)</text><text class="dg-dim" transform="translate(30,104.0) rotate(-90)" text-anchor="middle">what options expect (implied)</text><line class="dg-dash" x1="40" y1="190" x2="210" y2="20"/><text x="206.0" y="34.0" text-anchor="end" class="dg-dim">implied = historical</text><path class="dg-zone" d="M40,190 L300,190 L300,74.8 Z"/><text x="296.0" y="180.0" text-anchor="end" class="dg-cyan-t">calmest third of the pool</text><circle class="dg-cyan" cx="197.4" cy="123.4" r="3.6"/><circle class="dg-off" cx="146.4" cy="102.6" r="3.6"/><circle class="dg-off" cx="143.7" cy="115.2" r="3.6"/><circle class="dg-off" cx="193.9" cy="85.0" r="3.6"/><circle class="dg-off" cx="285.8" cy="39.6" r="3.6"/><circle class="dg-off" cx="270.9" cy="42.3" r="3.6"/><circle class="dg-off" cx="223.6" cy="72.3" r="3.6"/><circle class="dg-off" cx="150.4" cy="127.3" r="3.6"/><circle class="dg-cyan" cx="261.5" cy="124.5" r="3.6"/><circle class="dg-off" cx="206.5" cy="73.0" r="3.6"/><circle class="dg-off" cx="143.9" cy="120.0" r="3.6"/><circle class="dg-cyan" cx="248.8" cy="100.3" r="3.6"/><circle class="dg-cyan" cx="248.9" cy="111.6" r="3.6"/><circle class="dg-cyan" cx="94.4" cy="167.6" r="3.6"/><circle class="dg-cyan" cx="202.7" cy="124.7" r="3.6"/><circle class="dg-off" cx="113.9" cy="128.9" r="3.6"/><circle class="dg-off" cx="247.3" cy="53.1" r="3.6"/><circle class="dg-cyan" cx="263.2" cy="104.3" r="3.6"/><circle class="dg-off" cx="135.3" cy="134.1" r="3.6"/><circle class="dg-cyan" cx="123.4" cy="162.2" r="3.6"/><circle class="dg-off" cx="81.1" cy="171.8" r="3.6"/><circle class="dg-off" cx="183.6" cy="72.0" r="3.6"/><circle class="dg-off" cx="117.5" cy="141.8" r="3.6"/><circle class="dg-off" cx="225.5" cy="35.8" r="3.6"/><circle class="dg-off" cx="114.0" cy="146.5" r="3.6"/><circle class="dg-lime" cx="261.5" cy="124.5" r="5"/><circle class="dg-lime" cx="123.4" cy="162.2" r="5"/></svg><figcaption><b>Calm options</b>: generated diagram, made-up stocks. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:member_options_nightly -->
+            <div>
+              <h3><span class="fig">5</span>Calm options</h3>
+              <p class="lane-claim">It buys little-known quiet stocks whose options are priced calmest against the stock's own recent swings.</p>
+              <!-- maths:member_options_nightly --><div class="lane-math"><p class="eq">score = &#8722;<span class="frac">&#963;<sub>implied</sub> / &#963;<sub>historical</sub></span></p><p class="eq-note">&#963;<sub>implied</sub> is how far option prices expect the stock to move; &#963;<sub>historical</sub> is how far it moved lately. Only stocks wholly inside the lowest third of the pool's ratios that day can be picked. It buys its 10 calmest. Pool: fame &#8804; 0.67 and quiet.</p></div><!-- /maths:member_options_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>Implied volatility (how much the option prices expect the stock to move) over historical volatility (how much it moved lately). Only the calmest third of the pool can be picked. It reads no lens.</dd>
+              <dt>Buys</dt><dd>Its 10 calmest, calmest first. It is also one of the committee's six voters.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="member_flocking_nightly" data-board="Member: Flocking (nightly) (version 1)">
+            <!-- plate:member_flocking_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="One stock among six neighbours: arrows for heading their way, moving toward their middle, and keeping apart."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><path class="dg-off-f" d="M70.1,42.9 L51.1,55.5 L47.4,45.4 Z"/><path class="dg-off-f" d="M78.8,147.8 L57.7,156.4 L56.1,145.8 Z"/><path class="dg-off-f" d="M252.8,42.2 L230.1,44.2 L231.7,33.6 Z"/><path class="dg-off-f" d="M277.0,128.7 L254.5,133.0 L255.1,122.3 Z"/><path class="dg-off-f" d="M210.5,70.3 L190.3,81.0 L187.7,70.6 Z"/><path class="dg-off-f" d="M144.9,42.5 L123.4,50.1 L122.3,39.4 Z"/><line class="dg-cyan-s" x1="140.0" y1="112.0" x2="202.0" y2="104.0"/><path class="dg-cyan-s dg-fillink" d="M202.0,104.0 L197.0,107.3 L196.3,102.1 Z"/><text x="206.0" y="106.0" text-anchor="start" class="dg-cyan-t">alignment</text><line class="dg-uv-s" x1="140.0" y1="112.0" x2="157.7" y2="61.9"/><path class="dg-uv-s dg-fillink" d="M157.7,61.9 L158.3,67.8 L153.4,66.1 Z"/><text x="163.7" y="55.9" text-anchor="start" class="dg-uv-t">cohesion</text><line class="dg-mag-s" x1="140.0" y1="112.0" x2="104.0" y2="146.0"/><path class="dg-mag-s dg-fillink" d="M104.0,146.0 L106.1,140.4 L109.7,144.2 Z"/><text x="100.0" y="162.0" text-anchor="middle" class="dg-mag-t">separation</text><path class="dg-target-f" d="M156.5,121.0 L128.9,113.6 L135.3,101.8 Z"/><text x="12.0" y="188.0" text-anchor="start" class="dg-dim">fitted weights:</text><text x="12.0" y="204.0" text-anchor="start" class="dg-dim">align 0.0039, cohere &#8722;0.0184, separate 0.0001</text></svg><figcaption><b>Flocking</b>: generated diagram with the lens's real weights. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:member_flocking_nightly -->
+            <div>
+              <h3><span class="fig">6</span>Flocking</h3>
+              <p class="lane-claim">It buys quiet stocks that the flocking lens expects to move up with their neighbours.</p>
+              <!-- maths:member_flocking_nightly --><div class="lane-math"><p class="eq"><i>f<sub>i</sub></i> = <i>a</i> <i>r<sub>i</sub></i><sup>align</sup> + <i>c</i> <i>r<sub>i</sub></i><sup>cohere</sup> + <i>s</i> <i>r<sub>i</sub></i><sup>separate</sup></p><p class="eq-note"><i>f<sub>i</sub></i> forecasts the stock's move over the next 20 trading days, in usual daily swings. Each <i>r</i> is a flocking rule measured on the stock's neighbours, scaled over the day's quiet little-known stocks, less what the stock's own heading and position explain. Frozen weights: <i>a</i> = 0.0039, <i>c</i> = &#8722;0.0184, <i>s</i> = 0.0001. It buys its 10 best with <i>f<sub>i</sub></i> &gt; 0.</p></div><!-- /maths:member_flocking_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>The flocking lens forecasts each week how far each stock will move, from how the stocks near it move. On other nights the lane reads the last week-end's forecast, at most four trading days old.</dd>
+              <dt>Buys</dt><dd>Its 10 best by forecast move, only when the move is above 0. It is also one of the committee's six voters.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="sector_ahead_nightly" data-board="Sector attention ahead (nightly) (version 1)">
+            <!-- plate:sector_ahead_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="Four made-up sectors' share of attention; for two, the lens's four-week forecast rises above their own pull, and those are picked."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><line class="dg-ax" x1="30.0" y1="180.0" x2="308.0" y2="180.0"/><path class="dg-ax dg-fillink" d="M308.0,180.0 L302.6,182.6 L302.6,177.4 Z"/><line class="dg-ax" x1="30.0" y1="180.0" x2="30.0" y2="20.0"/><path class="dg-ax dg-fillink" d="M30.0,20.0 L32.6,25.4 L27.4,25.4 Z"/><text x="169.0" y="196.0" text-anchor="middle" class="dg-dim"></text><text class="dg-dim" transform="translate(20,100.0) rotate(-90)" text-anchor="middle">share of loud stocks</text><line class="dg-dash" x1="214" y1="22" x2="214" y2="180"/><text x="210.0" y="16.0" text-anchor="end" class="dg-dim">now</text><text x="220.0" y="16.0" text-anchor="start" class="dg-dim">4 weeks ahead</text><path class="dg-line" d="M30.0,78.6 L45.3,74.6 L60.6,72.0 L75.9,68.6 L91.2,70.4 L106.5,70.2 L121.8,64.9 L137.1,64.6 L152.4,68.0 L167.7,73.1 L183.0,73.1 L198.3,73.4 L213.6,73.2"/><path class="dg-line-dot" d="M214,73.2 L294,77.2"/><path class="dg-line" d="M30.0,104.1 L45.3,106.4 L60.6,99.8 L75.9,97.3 L91.2,95.0 L106.5,93.2 L121.8,89.9 L137.1,86.0 L152.4,92.3 L167.7,91.9 L183.0,92.1 L198.3,86.2 L213.6,80.5"/><path class="dg-line-dot" d="M214,80.5 L294,84.5"/><path class="dg-line-hot" d="M30.0,130.4 L45.3,134.4 L60.6,132.1 L75.9,125.3 L91.2,129.0 L106.5,122.6 L121.8,122.8 L137.1,127.4 L152.4,131.4 L167.7,133.3 L183.0,128.2 L198.3,125.0 L213.6,121.3"/><path class="dg-line-lime" d="M214,121.3 L294,87.3"/><path class="dg-line-dot" d="M214,121.3 L294,113.3"/><path class="dg-line-hot" d="M30.0,151.6 L45.3,156.0 L60.6,160.0 L75.9,166.9 L91.2,169.8 L106.5,174.9 L121.8,174.4 L137.1,180.8 L152.4,174.0 L167.7,170.4 L183.0,175.6 L198.3,169.5 L213.6,166.6"/><path class="dg-line-lime" d="M214,166.6 L294,132.6"/><path class="dg-line-dot" d="M214,166.6 L294,158.6"/><text x="306.0" y="98.0" text-anchor="end" class="dg-lime-t">lens</text><text x="306.0" y="140.0" text-anchor="end" class="dg-dim">own pull</text><text x="306.0" y="210.0" text-anchor="end" class="dg-lab">2 sectors where the lens beats their own pull are picked</text></svg><figcaption><b>Sector attention ahead</b>: generated diagram, made-up sectors. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:sector_ahead_nightly -->
+            <div>
+              <h3><span class="fig">7</span>Sector attention ahead</h3>
+              <p class="lane-claim">It buys early into the sectors that the predator-prey lens expects to gain attention, through their little-known quiet stocks.</p>
+              <!-- maths:sector_ahead_nightly --><div class="lane-math"><p class="eq">&#916; log <i>x</i> = &#945; &#8722; &#946;<i>y</i> &#8722; &#961;<sub><i>x</i></sub> log <i>x</i>&#8195;&#8195;&#916; log <i>y</i> = &#948;<i>x</i> &#8722; &#947; &#8722; &#961;<sub><i>y</i></sub> log <i>y</i></p><p class="eq-note">A predator-prey model per sector, one step a week: <i>y</i> is the sector's share of loud stock-days (the predator), <i>x</i> the size of its moves (the prey). Run 4 weeks ahead, it gives <i>&#375;</i><sub>lens</sub>; the plain guess sets &#946; = &#948; = 0 (the sector's own pull). Score: <i>&#375;</i><sub>lens</sub> &#8722; <i>&#375;</i><sub>own</sub>. It picks the 2 best sectors with a score above 0.</p></div><!-- /maths:sector_ahead_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>The predator-prey lens forecasts each week every sector's share of loud stocks four weeks ahead. The lane picks the 2 sectors that beat their own usual share by the most.</dd>
+              <dt>Buys</dt><dd>The least-known quiet stocks of those 2 sectors, one from each in turn. If no sector beats its usual share, it buys nothing. It is also one of the committee's six voters.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="sector_ahead_sound_nightly" data-board="Sector attention ahead, sound business only (nightly) (version 1)">
+            <!-- plate:sector_ahead_sound_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="The parent lane's list of six made-up stocks: two fail a check and are passed over; the next sound stocks are taken."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><text x="26.0" y="24.0" text-anchor="start" class="dg-head">parent's list</text><text x="150.0" y="24.0" text-anchor="middle" class="dg-head">sales held</text><text x="220.0" y="24.0" text-anchor="middle" class="dg-head">no miss</text><text x="290.0" y="24.0" text-anchor="middle" class="dg-head">taken</text><rect class="dg-row-ok" x="20" y="36" width="290" height="22"/><text x="40.0" y="52.0" text-anchor="start" class="dg-lab">stock 1</text><path class="dg-lime-s" d="M146,48 l3,3 l6,-7"/><path class="dg-lime-s" d="M216,48 l3,3 l6,-7"/><text x="290.0" y="52.0" text-anchor="middle" class="dg-lime-t">1</text><rect class="dg-row" x="20" y="62" width="290" height="22"/><text x="40.0" y="78.0" text-anchor="start" class="dg-dim">stock 2</text><path class="dg-lime-s" d="M146,74 l3,3 l6,-7"/><path class="dg-mag-s" d="M216,72 l8,8 M224,72 l-8,8"/><rect class="dg-row" x="20" y="88" width="290" height="22"/><text x="40.0" y="104.0" text-anchor="start" class="dg-dim">stock 3</text><path class="dg-mag-s" d="M146,98 l8,8 M154,98 l-8,8"/><path class="dg-lime-s" d="M216,100 l3,3 l6,-7"/><rect class="dg-row-ok" x="20" y="114" width="290" height="22"/><text x="40.0" y="130.0" text-anchor="start" class="dg-lab">stock 4</text><path class="dg-lime-s" d="M146,126 l3,3 l6,-7"/><path class="dg-lime-s" d="M216,126 l3,3 l6,-7"/><text x="290.0" y="130.0" text-anchor="middle" class="dg-lime-t">2</text><rect class="dg-row-ok" x="20" y="140" width="290" height="22"/><text x="40.0" y="156.0" text-anchor="start" class="dg-lab">stock 5</text><path class="dg-lime-s" d="M146,152 l3,3 l6,-7"/><path class="dg-lime-s" d="M216,152 l3,3 l6,-7"/><text x="290.0" y="156.0" text-anchor="middle" class="dg-lime-t">3</text><rect class="dg-row-ok" x="20" y="166" width="290" height="22"/><text x="40.0" y="182.0" text-anchor="start" class="dg-lab">stock 6</text><path class="dg-lime-s" d="M146,178 l3,3 l6,-7"/><path class="dg-lime-s" d="M216,178 l3,3 l6,-7"/></svg><figcaption><b>Sector attention ahead, sound business only</b>: generated diagram, made-up stocks. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:sector_ahead_sound_nightly -->
+            <div>
+              <h3><span class="fig">8</span>Sector attention ahead, sound business only</h3>
+              <p class="lane-claim">It takes the same list as Sector attention ahead, but skips companies whose business is getting worse.</p>
+              <!-- maths:sector_ahead_sound_nightly --><div class="lane-math"><p class="eq">take <i>s</i> &#8660; <i>g</i>(<i>s</i>) &#8805; 0.0 and surprise(<i>s</i>) &#8805; 0</p><p class="eq-note"><i>g</i> is sales growth over the last four quarters against the four before, and surprise is the newest earnings report against the estimate, both in percent rounded to 0.1 point. No report on record is not a miss; growth that cannot be worked out fails. It keeps its parent's order.</p></div><!-- /maths:sector_ahead_sound_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>Sales of the last four quarters at or above the four before, and no miss in the newest earnings report. A stock that fails is passed over and the next one is taken.</dd>
+              <dt>Buys</dt><dd>The sound stocks of its parent's list, in its parent's order.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>Its parent lane only, over the days both ran. It has no random twins.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane" id="insider_conviction" data-board="Insider conviction (version 1)">
+            <!-- plate:insider_conviction --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="Two insiders over four years: one trades in different months and then buys, which counts; one trades in the same month every year, which does not."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><text x="16.0" y="22.0" text-anchor="start" class="dg-dim">trades by year (each dot a month with a trade)</text><rect class="dg-yr" x="70" y="34" width="56" height="150"/><text x="98.0" y="200.0" text-anchor="middle" class="dg-dim">Y−3</text><rect class="dg-yr" x="130" y="34" width="56" height="150"/><text x="158.0" y="200.0" text-anchor="middle" class="dg-dim">Y−2</text><rect class="dg-yr" x="190" y="34" width="56" height="150"/><text x="218.0" y="200.0" text-anchor="middle" class="dg-dim">Y−1</text><rect class="dg-yr" x="250" y="34" width="56" height="150"/><text x="278.0" y="200.0" text-anchor="middle" class="dg-dim">Y</text><text x="62.0" y="74.0" text-anchor="end" class="dg-lab">officer A</text><circle class="dg-cyan" cx="76.7" cy="70" r="4"/><circle class="dg-cyan" cx="165.1" cy="70" r="4"/><circle class="dg-cyan" cx="210.9" cy="70" r="4"/><circle class="dg-lime" cx="275.6" cy="70" r="6.5"/><text x="271.6" y="58.0" text-anchor="middle" class="dg-lime-t">buy, $25,000+</text><text x="62.0" y="144.0" text-anchor="end" class="dg-lab">director B</text><circle class="dg-off" cx="81.5" cy="140" r="4"/><circle class="dg-off" cx="141.5" cy="140" r="4"/><circle class="dg-off" cx="201.5" cy="140" r="4"/><circle class="dg-off" cx="261.5" cy="140" r="6.5"/><path class="dg-mag-s" d="M257.45454545454544,136 l8,8 M265.45454545454544,136 l-8,8"/><text x="306.0" y="118.0" text-anchor="end" class="dg-mag-t">same month every year:</text><text x="306.0" y="130.0" text-anchor="end" class="dg-mag-t">a routine, ignored</text></svg><figcaption><b>Insider conviction</b>: generated diagram, made-up insiders. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:insider_conviction -->
+            <div>
+              <h3><span class="fig">9</span>Insider conviction</h3>
+              <p class="lane-claim">It buys a stock after one of its officers or directors, who does not trade on a yearly routine, buys its shares on the open market.</p>
+              <!-- maths:insider_conviction --><div class="lane-math"><p class="eq">buy <i>s</i> &#8660; &#8707; insider: &#8721; $ &#8805; 25,000 and not routine</p><p class="eq-note">A buy counts when it is an open-market purchase on Form 4 by an officer or director, filed within 7 days and seen in the last 5 trading days. The insider must have traded the company's shares in each of the 3 calendar years before. Routine: a trade in the same calendar month in each of those 3 years. Order: most qualifying insiders, then the larger sum.</p></div><!-- /maths:insider_conviction -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>Open-market buys on the SEC's Form 4, reported within 7 days and seen in the last 5 trading days. The insider must have traded the company's shares in each of the three years before. An insider who trades in the same month every year is on a routine and does not count.</dd>
+              <dt>Buys</dt><dd>Stocks with at least one such insider whose buys add up to $25,000 or more: most insiders first, then the larger sum. It looks at every stock, not only quiet ones, and reads no lens.</dd>
+              <dt>Holds</dt><dd>20 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins drawn from all stocks, and the S&amp;P 500.</dd>
+              <dt>So far</dt><dd class="lane-sofar" data-sofar>Read from the scoreboard when the page loads.</dd>
+            </dl>
+          </li>
+          <li class="lane lane-coming" id="reader_nightly">
+            <!-- plate:reader_nightly --><figure class="lane-fig"><svg class="dg" viewBox="0 0 320 220" role="img" aria-label="The news reader's pipeline: 20 flagged stocks, one Opus reading each, and a buy only for up calls with confidence 52 or more."><rect class="dg-ground" x="0" y="0" width="320" height="220"/><rect class="dg-box" x="8" y="22" width="96" height="66"/><text x="56.0" y="40.0" text-anchor="middle" class="dg-head">volatility model</text><text x="56.0" y="58.0" text-anchor="middle" class="dg-dim">flags the 20</text><text x="56.0" y="72.0" text-anchor="middle" class="dg-dim">most active</text><rect class="dg-box" x="112" y="22" width="96" height="66"/><text x="160.0" y="40.0" text-anchor="middle" class="dg-head">Claude Opus</text><text x="160.0" y="58.0" text-anchor="middle" class="dg-dim">reads prices,</text><text x="160.0" y="72.0" text-anchor="middle" class="dg-dim">news, links</text><rect class="dg-box" x="216" y="22" width="96" height="66"/><text x="264.0" y="40.0" text-anchor="middle" class="dg-head">one answer each</text><text x="264.0" y="58.0" text-anchor="middle" class="dg-dim">up or down,</text><text x="264.0" y="72.0" text-anchor="middle" class="dg-dim">confidence 0-100</text><line class="dg-ax" x1="104.0" y1="55.0" x2="111.0" y2="55.0"/><path class="dg-ax dg-fillink" d="M111.0,55.0 L105.6,57.6 L105.6,52.4 Z"/><line class="dg-ax" x1="208.0" y1="55.0" x2="215.0" y2="55.0"/><path class="dg-ax dg-fillink" d="M215.0,55.0 L209.6,57.6 L209.6,52.4 Z"/><rect class="dg-track" x="20" y="144" width="280" height="12"/><line class="dg-lime-s" x1="165.6" y1="132" x2="165.6" y2="168"/><text x="165.6" y="126.0" text-anchor="middle" class="dg-lime-t">52</text><circle class="dg-lime" cx="199.2" cy="150" r="6"/><text x="207.2" y="178.0" text-anchor="start" class="dg-lime-t">up, 64: bought</text><circle class="dg-off" cx="146.0" cy="150" r="6"/><text x="138.0" y="178.0" text-anchor="end" class="dg-dim">up, 45: not bought</text><text x="20.0" y="202.0" text-anchor="start" class="dg-dim">0</text><text x="300.0" y="202.0" text-anchor="end" class="dg-dim">100</text></svg><figcaption><b>News reader</b>: generated diagram. The rule and its numbers are the lane's own.</figcaption></figure><!-- /plate:reader_nightly -->
+            <div>
+              <h3><span class="fig">10</span>News reader <span class="lane-state">New</span></h3>
+              <p class="lane-claim">An isolated AI model reads the news for stocks that a volatility model flags, and the lane buys the ones it expects to go up the next day.</p>
+              <!-- maths:reader_nightly --><div class="lane-math"><p class="eq">buy <i>s</i> &#8660; direction(<i>s</i>) = up and confidence(<i>s</i>) &#8805; 52</p><p class="eq-note">One isolated call to Claude Opus per flagged stock, with no tools and no memory. A failed or malformed answer gives no buy. Order: most confident first.</p></div><!-- /maths:reader_nightly -->
+            </div>
+            <dl class="lane-facts">
+              <dt>Looks for</dt><dd>Each evening a volatility model flags the 20 stocks it expects to be most active. Claude Opus reads each one's recent prices, headlines and linked stocks, with no tools and no memory, and gives a direction and a confidence from 0 to 100.</dd>
+              <dt>Buys</dt><dd>Flagged stocks called up for the next day with a confidence of 52 or more, most confident first.</dd>
+              <dt>Holds</dt><dd>5 trading days.</dd>
+              <dt>Judged against</dt><dd>20 random twins drawn from all stocks, the S&amp;P 500, and the same reader with no news or another stock's news.</dd>
+              <dt>Status</dt><dd>Built and frozen. It has its own slice and has not bought yet, so it is not on the scoreboard. It does not rest on the map's lenses.</dd>
+            </dl>
+          </li>
+        </ol>
+      </section>
+      <canvas class="lanes-break" data-fractal="rule" aria-hidden="true"></canvas>
+
+      <section id="judged" aria-labelledby="judged-title">
+        <h2 id="judged-title">How a lane is judged</h2>
+        <div class="prose">
+          <p>Each lane also keeps a pretend account that follows its rules exactly, with fills at the close. Its 20 random twins run beside it. A lane earns credit only if it beats its own twins, so luck and a rising market do not count as skill.</p>
+          <p>A lane reads "clearly ahead" only after at least 60 trading days and 20 closed trades, and only when it stands at least 2.5 standard deviations above its twins. Passing the live-results gate means only that a lane is not behind. The owner plans to judge the lanes at about 120 trading days.</p>
+          <p>Until then a lane says "too early to say". A few months of results are too few to tell skill from luck.</p>
+        </div>
+        <figure class="lanes-fig">
+          <canvas data-fractal="recurrence" role="img" aria-label="A square tapestry of coloured bands and blocks: S&amp;P 500 monthly volatility compared month by month, 1928 to 2020."></canvas>
+          <figcaption><span class="fignum">Fig. 2</span> Recurrence plot of S&amp;P 500 volatility, one month per row and column, January 1928 to December 2020 (1,116 months). Each point compares two months: the same colour means the market was about as calm or as stormy in both. Calm and stormy spells come back in blocks that last years. <span class="figkind">Real data.</span></figcaption>
+        </figure>
+      </section>
+
+      <canvas class="lanes-break" data-fractal="rule" aria-hidden="true"></canvas>
+
+      <section id="scoreboard" aria-labelledby="scoreboard-title">
+        <h2 id="scoreboard-title">The scoreboard</h2>
+        <div class="prose"><p>Every model and every lane tried, with where it stands. The first model on it failed its test.</p></div>
+        <p class="state" id="board-state">Reading the scoreboard…</p>
+        <details class="board-box" id="board-box">
+          <summary id="board-summary">Full scoreboard</summary>
+          <div id="board"></div>
+        </details>
+        <noscript><p class="state">The scoreboard needs JavaScript.</p></noscript>
+      </section>
+    </main>
+  </div>
+
+  <footer class="lanes-foot">
+    <span>Pictures marked "generated" show no data: the Mandelbrot band is computed in your browser, and each lane's diagram uses made-up stocks with the lane's real rule. "Real data" pictures come from the S&amp;P 500's daily closes, 1928 to 2020.</span>
+    <span>Nothing on this page trades.</span>
+  </footer>
+</div>
+<script src="world.js"></script>
+<script src="fractal.js"></script>
+<script src="lanes.js"></script>
+</body>
+</html>

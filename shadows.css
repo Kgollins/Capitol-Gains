@@ -1,0 +1,83 @@
+/* shadows.css: the Shadows page's own rules (shadows.html, shadows.js). It reads site.css first and keeps its tokens:
+   the page shares the Lanes and Performance frame (pill bar, ground canvas, light headings) and adds one plate per
+   shadow. Under mist the plates are translucent washes with hairline rims and soft corners, as on Performance. No CSS
+   blur, glow, gradient, shadow or animation (static_rules.test.js). */
+
+.sh-page { --sh-run: var(--cyan); --sh-late: var(--magenta); --sh-wait: var(--lime); }
+.sh-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.sh-plate {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px 40px;
+  padding: 26px 28px 24px; background: var(--void-2); border: 1px solid var(--rule);
+}
+.sh-head { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
+.sh-head h3 { margin: 0; font-size: clamp(24px, 2.6vw, 30px); font-weight: 300; letter-spacing: -0.01em; line-height: 1.15; color: var(--ink); }
+.sh-head .quietbadge { font-size: 12.5px; }
+.sh-what { margin: 0; max-width: 60ch; font-size: 16.5px; line-height: 1.55; color: var(--ink-2); }
+.sh-can { margin: 14px 0 0; max-width: 60ch; font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+.sh-can b { display: block; margin-bottom: 2px; font-weight: 500; color: var(--ink-2); }
+.sh-note { margin: 12px 0 0; font-size: 14.5px; line-height: 1.45; color: var(--sh-late); }
+
+/* The status: a word and a mark. The mark's shape differs as well as its colour (a ring is not run, a bar is late). */
+.sh-status {
+  display: inline-flex; align-items: center; gap: 8px; padding: 3px 11px 3px 9px; border: 1px solid var(--rule-2);
+  border-radius: 999px; font-size: 13.5px; line-height: 1.35; color: var(--ink-2); white-space: nowrap;
+}
+.sh-status::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink-4); }
+.sh-status[data-status="running"] { border-color: var(--sh-run); color: var(--ink); }
+.sh-status[data-status="running"]::before { background: var(--sh-run); border-color: var(--sh-run); }
+.sh-status[data-status="late"] { border-color: var(--sh-late); color: var(--ink); }
+.sh-status[data-status="late"]::before { width: 10px; height: 3px; border-radius: 2px; background: var(--sh-late); border-color: var(--sh-late); }
+.sh-status[data-status="waiting"] { border-color: var(--sh-wait); color: var(--ink); }
+.sh-status[data-status="waiting"]::before { background: transparent; border-color: var(--sh-wait); border-width: 2px; border-right-color: transparent; }
+.sh-status[data-status="unknown"]::before { border-style: dashed; }
+
+/* The facts: when it runs, its last record, the result's date; then the counts. */
+.sh-facts { margin: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 7px 16px; font-size: 14.5px; line-height: 1.45; align-content: start; }
+.sh-facts dt { color: var(--ink-3); }
+.sh-facts dd { margin: 0; color: var(--ink); }
+.sh-facts .sh-sub { display: block; color: var(--ink-3); font-size: 13.5px; }
+.sh-counts-title { margin: 16px 0 8px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--ink-3); }
+.sh-counts { grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; max-width: 420px; }
+.sh-counts dd { text-align: right; }
+.sh-num { font-family: var(--face-display); font-variant-numeric: tabular-nums lining-nums; letter-spacing: .01em; }
+.sh-days { margin: 16px 0 0; border-collapse: collapse; font-size: 13.5px; width: 100%; max-width: 420px; }
+.sh-days caption { text-align: left; padding-bottom: 6px; color: var(--ink-3); font-size: 13px; }
+.sh-days th, .sh-days td { padding: 5px 12px 5px 0; text-align: right; border-top: 1px solid var(--rule); }
+.sh-days th:first-child, .sh-days td:first-child { text-align: left; }
+.sh-days thead th { font-weight: 500; color: var(--ink-3); border-top: 0; }
+.sh-days tbody th { font-weight: 400; color: var(--ink-2); }
+.sh-days td { color: var(--ink); }
+
+/* How to read the status. */
+.sh-key { margin: 18px 0 0; display: grid; gap: 10px; max-width: 760px; }
+.sh-key > div { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 4px 18px; align-items: baseline; }
+.sh-key dt { margin: 0; }
+.sh-key dd { margin: 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+#sh-read { margin-top: 64px; }
+#sh-read h2 { margin: 0; }
+
+/* Mist: the rounded, translucent feel of Lanes and Performance. */
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-plate { background: var(--veil); border-color: var(--hair); border-radius: var(--soft); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page :is(.sh-counts-title, .sh-days th, .sh-days td) { border-color: var(--hair); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-days thead th { border-color: transparent; }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-status { border-color: var(--hair-2); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-status:is([data-status="running"], [data-status="late"], [data-status="waiting"]) { background: var(--veil-2); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-status[data-status="running"] { border-color: var(--sh-run); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-status[data-status="late"] { border-color: var(--sh-late); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page .sh-status[data-status="waiting"] { border-color: var(--sh-wait); }
+:is(:root[data-scheme="mist"], :root[data-scheme-default="mist"]:not([data-scheme])) .sh-page #sh-read h2 { font-weight: 300; letter-spacing: -0.01em; }
+
+@media (max-width: 899px) {
+  .sh-plate { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}
+@media (max-width: 639px) {
+  .sh-plate { padding: 20px 16px 18px; }
+  .sh-what { font-size: 16px; }
+  .sh-facts:not(.sh-counts) { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .sh-facts:not(.sh-counts) dd { margin-bottom: 8px; }
+  .sh-facts:not(.sh-counts) dd:last-child { margin-bottom: 0; }
+  .sh-counts { max-width: none; column-gap: 16px; }
+  .sh-key > div { grid-template-columns: minmax(0, 1fr); }
+  .sh-days { max-width: none; }
+  .sh-status { white-space: normal; }
+}

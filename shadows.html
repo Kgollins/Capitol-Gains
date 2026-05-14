@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-scheme-default="mist">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shadows</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="shadows.css">
+</head>
+<body class="lanes-page sh-page">
+<canvas class="page-ground" data-fractal="scene" aria-hidden="true"></canvas>
+<a class="skip" href="#sh-main">Skip to the shadows</a>
+<div class="lanes-wrap">
+  <header>
+    <div class="site-bar lanes-bar">
+      <a class="site-mark" href="./"><canvas data-fractal="mandel" aria-hidden="true"></canvas>Market Map</a>
+      <nav class="site-nav" aria-label="Pages">
+        <a href="map.html">Map</a>
+        <a href="lanes.html">Lanes</a>
+        <a href="performance.html">Performance</a>
+        <a href="shadows.html" aria-current="page">Shadows</a>
+      </nav>
+    </div>
+    <canvas class="perf-rule" data-fractal="rule" aria-hidden="true"></canvas>
+    <div class="lanes-head">
+      <h1>Shadows</h1>
+      <p class="badges">
+        <span class="quietbadge">Paper account: no real money</span>
+        <span class="quietbadge" id="sh-fixture" hidden>Test copy, not the live file</span>
+      </p>
+    </div>
+    <p class="lanes-lede">A shadow is a job that runs on its own each weekday and records what it sees. It does not decide a trade on its own. This page shows each shadow, when it last recorded and when it can first show a result.</p>
+    <p class="perf-facts" id="sh-facts" hidden></p>
+  </header>
+
+  <main class="perf-main" id="sh-main" tabindex="-1">
+    <p class="state" id="sh-state">Reading the shadows file…</p>
+    <noscript><p class="state">The list of shadows needs JavaScript.</p></noscript>
+
+    <section id="sh-items" aria-labelledby="sh-items-title" hidden>
+      <h2 id="sh-items-title" class="vh">The shadows</h2>
+      <ol class="sh-list" id="sh-list"></ol>
+    </section>
+
+    <section id="sh-read" aria-labelledby="sh-read-title">
+      <h2 id="sh-read-title">How to read the status</h2>
+      <dl class="sh-key">
+        <div><dt><span class="sh-status" data-status="running">Running</span></dt><dd>It recorded on the last weekday that it had to.</dd></div>
+        <div><dt><span class="sh-status" data-status="late">Late: missed a weekday</span></dt><dd>A weekday has no record, and its run time passed more than 90 minutes ago.</dd></div>
+        <div><dt><span class="sh-status" data-status="waiting">Waiting for data</span></dt><dd>It ran, but its last run recorded nothing to use.</dd></div>
+        <div><dt><span class="sh-status" data-status="not_run">Not run yet</span></dt><dd>It has no record yet.</dd></div>
+        <div><dt><span class="sh-status" data-status="unknown">Unknown</span></dt><dd>Its record could not be read.</dd></div>
+      </dl>
+      <div class="prose">
+        <p>Only trading days count. A weekend or a market holiday is never late. All times are Central time.</p>
+        <p>A due date marked "about" is a projection from the days recorded so far. It moves if a shadow misses a day.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lanes-foot">
+    <span>Counts and dates come from each shadow's own record on the Pi. This page shows no stock names and no model text.</span>
+    <span>Nothing on this page trades.</span>
+  </footer>
+</div>
+<script src="world.js"></script>
+<script src="fractal.js"></script>
+<script src="shadows.js"></script>
+</body>
+</html>

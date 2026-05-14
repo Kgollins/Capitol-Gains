@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The ripple map</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="world.css">
+</head>
+<body class="map-page">
+<canvas class="map-field" data-mm="field" role="img" aria-label="The market as one forest floor."></canvas>
+
+<div class="map-top">
+  <header class="map-say">
+    <h1 data-mm="head">Reading the map…</h1>
+    <p class="map-sub" data-mm="sub"></p>
+    <p class="map-notes" data-mm="empty" hidden></p>
+    <div class="map-folds">
+      <details class="map-fold" data-fold="key" open>
+        <summary class="textbutton map-fold-head">Key</summary>
+        <ul class="map-key" data-mm="key" aria-label="What the marks mean">
+          <li><canvas data-k="quiet" aria-hidden="true"></canvas>quiet</li>
+          <li><canvas data-k="loud" aria-hidden="true"></canvas>loud, cap open</li>
+          <li><canvas data-k="tired" aria-hidden="true"></canvas>tired, cap dropped</li>
+          <li><canvas data-k="held" aria-hidden="true"></canvas><span data-k-label="held">held</span></li>
+          <li><canvas data-k="unknown" aria-hidden="true"></canvas>no reading</li>
+          <li class="map-key-break" aria-hidden="true"></li>
+          <li><canvas data-k="catalyst" aria-hidden="true"></canvas>catalyst</li>
+          <li class="map-key-wide"><canvas data-k="with" aria-hidden="true"></canvas>moved with it</li>
+          <li class="map-key-wide"><canvas data-k="against" aria-hidden="true"></canvas>moved against it</li>
+          <li class="map-key-wide"><canvas data-k="earlier" aria-hidden="true"></canvas>other catalysts and earlier days</li>
+          <li class="map-key-wide"><canvas data-k="died" aria-hidden="true"></canvas>died out: nothing passed along</li>
+        </ul>
+      </details>
+      <details class="map-fold" data-fold="tools" open>
+        <summary class="textbutton map-fold-head">Show and find</summary>
+        <div class="map-tools" data-mm="tools" hidden>
+          <div class="map-tool-row">
+            <button class="textbutton" data-tool="news" type="button" aria-pressed="true">Shared news</button>
+            <button class="textbutton" data-tool="comove" type="button" aria-pressed="true">Moves together</button>
+            <button class="textbutton" data-tool="mine" type="button" aria-pressed="false">My positions only</button>
+            <button class="textbutton" data-tool="find" type="button" aria-pressed="false" aria-controls="map-find">Find a stock</button>
+            <button class="textbutton map-reset" data-tool="reset" type="button">Reset view</button>
+          </div>
+          <div class="map-tool-drop">
+            <div class="map-find" id="map-find" data-tool="findbox" hidden>
+              <input class="map-find-input" data-tool="q" type="search" maxlength="60" autocomplete="off" spellcheck="false" placeholder="a ticker or a name" aria-label="Find a stock by its ticker or its name">
+              <ul class="map-found" data-tool="found" aria-label="Stocks found"></ul>
+            </div>
+            <div class="map-tool-notes" data-tool="notes" hidden></div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </header>
+  <aside class="map-record" data-mm="record" aria-label="The record of a stock" hidden></aside>
+  <details class="map-fold map-fold-dials" data-fold="dials" open>
+    <summary class="textbutton map-fold-head">Dials</summary>
+    <section class="map-dials" data-mm="dials" aria-label="Dials"></section>
+  </details>
+</div>
+
+<div class="map-labels" data-mm="labels" aria-hidden="true"></div>
+<div class="map-captions" data-mm="captions"></div>
+<div class="vh" data-mm="alt"></div>
+
+<div class="map-bottom">
+  <section class="map-core" data-mm="core" aria-label="Time">
+    <button class="map-play" data-core="play" type="button" aria-label="Play through history" aria-pressed="false" disabled>
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path data-core="icon" d="M4.5 2.5 L13 8 L4.5 13.5 Z" fill="currentColor"/></svg>
+    </button>
+    <div class="map-core-body">
+      <span class="map-core-note" data-core="note" hidden></span>
+      <span class="map-core-recent" data-core="recent" hidden>last 30 days</span>
+      <span class="map-core-when" data-core="when"><span data-core="time"></span> <span class="map-core-clock" data-core="clock" hidden>time set by the link</span></span>
+      <canvas class="map-core-strip" data-core="strip" aria-hidden="true"></canvas>
+      <input class="map-core-range" data-core="range" type="range" min="0" max="1" step="1" value="1" aria-label="Move through history" disabled>
+      <div class="map-core-years" data-core="years" aria-hidden="true"></div>
+    </div>
+  </section>
+  <footer class="map-foot" data-mm="foot">
+    <button class="textbutton map-speed" data-core="speed" type="button" title="How fast play moves through the days">speed 1x</button>
+    <p class="quietbadge">view only: nothing here trades</p>
+    <p class="quietbadge" data-foot="demo" hidden>made-up data for building the page</p>
+    <a href="atlas.html">atlas</a>
+    <a href="atlas.html#scoreboard" data-foot="scoreboard">scoreboard</a>
+  </footer>
+</div>
+
+<aside class="map-board" data-mm="scoreboard" aria-labelledby="map-board-title" hidden></aside>
+
+<noscript><p class="map-noscript">The ripple map needs JavaScript to draw.</p></noscript>
+<script src="world.js"></script>
+<script src="map_core.js"></script>
+<script src="map_draw.js"></script>
+<script src="map_page.js"></script>
+</body>
+</html>

@@ -1,0 +1,1180 @@
+/* world.css: the Market Map's shared stylesheet. The colour and face tokens, and the base styles every page uses.
+   Text takes the bones only: --ash and --amethyst fall below 4.5:1 on peat, so they mark and never write. */
+
+/* tokens:start */
+:root {
+  --peat: #231a14;
+  --peat-deep: #1c140f;
+  --humus: #2e231b;
+  --bone: #e9dfc8;
+  --bone-2: #d3c7ac;
+  --bone-3: #b8ab92;
+  --bone-4: #9d8f77;
+  --chanterelle: #f2a03d;
+  --amethyst: #7d5ba6;
+  --moss: #6f8f4e;
+  --ash: #6b5a4a;
+  --serif: "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","URW Palladio L",P052,"TeX Gyre Pagella",Georgia,serif;
+  --sans: "Gill Sans","Gill Sans MT",Seravek,"Segoe UI",system-ui,"Helvetica Neue","Liberation Sans",Arial,sans-serif;
+}
+/* tokens:end */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  background: var(--peat);
+  accent-color: var(--bone-2);
+  scrollbar-color: var(--ash) var(--humus);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+* { scrollbar-width: thin; }
+::-webkit-scrollbar { width: 8px; height: 8px; background: var(--humus); }
+::-webkit-scrollbar-thumb { background: var(--ash); border: 2px solid var(--humus); border-radius: 4px; }
+@media (hover: hover) { ::-webkit-scrollbar-thumb:hover { background: var(--bone-4); } }
+::-webkit-scrollbar-corner { background: var(--humus); }
+
+/* Captions and prose are in the serif; the few figures are in the sans (.fig). */
+body {
+  margin: 0;
+  background: var(--peat);
+  color: var(--bone);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.5;
+  caret-color: var(--bone);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-weight: 400; text-wrap: balance; }
+p, li, dd, figcaption { text-wrap: pretty; }
+button, input, select, textarea { font: inherit; color: inherit; }
+::placeholder { color: var(--bone-4); opacity: 1; }
+
+::selection { background: var(--ash); color: var(--bone); }
+:focus-visible { outline: 1.5px solid var(--bone); outline-offset: 3px; }
+
+/* Only an anchor that still has its address looks like a link. :where() keeps this at zero weight, so a class
+   such as .textbutton on a link wins. */
+:where(a:any-link) {
+  color: var(--bone);
+  text-decoration-line: underline;
+  text-decoration-color: var(--bone-4);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+@media (hover: hover) {
+  :where(a:any-link):hover { text-decoration-color: var(--bone); }
+}
+
+/* The type voice: a figure set in the sans inside serif text, and a colony's name in spaced small caps. */
+.fig {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: .89em;
+  letter-spacing: .02em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.colony {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .14em;
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "smcp", "c2sc";
+  color: var(--bone-3);
+  white-space: nowrap;
+}
+
+/* The world's buttons: a humus pill with a bone rim, made of the same stuff as the play button.
+   A switch (aria-pressed) carries a ring that fills when it is on, so its state reads by form as well as by light. */
+.textbutton {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  margin: 0;
+  padding: 6px 13px 4px;   /* the serif sits high in its line box; this centres it by eye */
+  border: 1px solid var(--bone-4);
+  border-radius: 999px;
+  background: var(--humus);
+  color: var(--bone-2);
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .textbutton:hover { background: #3a2c22; border-color: var(--bone-3); color: var(--bone); }
+}
+.textbutton:active { background: var(--peat-deep); }
+.textbutton[aria-pressed]::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+.textbutton[aria-pressed="true"] { border-color: var(--bone); color: var(--bone); }
+.textbutton[aria-pressed="true"]::before { background: currentColor; }
+.textbutton:disabled, .textbutton[aria-disabled="true"] {
+  background: transparent;
+  border-color: var(--ash);
+  color: var(--bone-4);
+  cursor: default;
+}
+@media (pointer: coarse) {
+  .textbutton { min-height: 44px; padding: 9px 16px 7px; }
+}
+
+/* A caption plate: a patch of bare peat cut into the field, the lead in italic bone. As a button it isolates. */
+.plate {
+  margin: 0;
+  padding: 6px 9px 7px;
+  background: var(--peat);
+  color: var(--bone-2);
+  font-size: 13.5px;
+  line-height: 1.42;
+}
+.plate em { font-style: italic; color: var(--bone); }
+button.plate { display: block; border: 0; border-radius: 0; text-align: left; cursor: pointer; }
+@media (hover: hover) {
+  button.plate:hover em {
+    text-decoration-line: underline;
+    text-decoration-color: var(--bone-4);
+    text-underline-offset: 3px;
+  }
+}
+
+/* A quiet label, such as made-up data or view only: a thin ash rim around italic text, on its own patch of peat. */
+.quietbadge {
+  display: inline-block;
+  margin: 0;
+  padding: 3px 8px 4px;
+  border: 1px solid var(--ash);
+  background: var(--peat);
+  color: var(--bone-3);
+  font-size: 12.5px;
+  font-style: italic;
+  line-height: 1;
+}
+
+/* Visually hidden, still read aloud. */
+.vh {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Charts (charts.js). Every part of a chart is a class, and this sheet gives each its colour. Ink is bone on peat;
+   chanterelle marks only what is live or moved with, amethyst what moved against. Nothing is written over a plot:
+   series are named in a key above it, in text ink, and the key repeats each series' form. Sizes match charts.js. */
+.mmc {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--bone-3);
+  font-family: var(--sans);
+  font-size: 11px;
+}
+.mmc text { fill: var(--bone-4); font-family: var(--sans); font-size: 11px; letter-spacing: .02em; font-variant-numeric: lining-nums tabular-nums; }
+
+/* The frame: a bone-4 baseline with its tick marks, hairline grid, and a firmer zero line. */
+.mmc .axis { fill: none; stroke: var(--bone-4); stroke-width: 1; }
+.mmc line.tick, .mmc path.tick { fill: none; stroke: var(--bone); stroke-opacity: .09; stroke-width: 1; }
+.mmc .zero { fill: none; stroke: var(--bone-3); stroke-opacity: .7; stroke-width: 1; }
+.mmc .ylab, .mmc .xlab, .mmc .lbl, .mmc .empty, .mmc .note {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  font-style: italic;
+  letter-spacing: 0;
+  font-variant-numeric: normal;
+}
+.mmc .ylab, .mmc .xlab, .mmc .empty, .mmc .note { fill: var(--bone-3); }
+.mmc .lbl { fill: var(--bone-2); }
+.mmc .tick.cat, .mmc .row { font-family: var(--serif); font-size: 12px; letter-spacing: 0; font-variant-numeric: normal; fill: var(--bone-3); }
+.mmc .row { font-size: 12.5px; }
+
+/* Series. Each has a tone (tone-0 bone, tone-1 bone-3, tone-2 bone-4) and a second form: each real series its own
+   marker shape, and a shuffled-maps series (.ref) its real partner's tone and shape, dashed and hollow. */
+.mmc .tone-0 { color: var(--bone); }
+.mmc .tone-1 { color: var(--bone-3); }
+.mmc .tone-2 { color: var(--bone-4); }
+.mmc.live .ln-0 { color: var(--chanterelle); }
+.mmc .ln, .mmc .kline { fill: none; stroke: currentColor; stroke-width: 1.2; stroke-linejoin: round; stroke-linecap: round; }
+.mmc .ln.ln-0, .mmc .kline.ln-0 { stroke-width: 1.6; }
+.mmc .ln.ref, .mmc .kline.ref { stroke-dasharray: 4 3; stroke-linecap: butt; }
+.mmc .ln.ref-2, .mmc .kline.ref-2 { stroke-dasharray: 1.5 2.5; }
+.mmc .band { fill: var(--bone); fill-opacity: .14; stroke: none; }
+.mmc .err { fill: none; stroke: var(--bone); stroke-width: 1; }
+.mmc .err.ref { stroke: currentColor; }
+.mmc .dot, .mmc .pt, .mmc .kmark { fill: currentColor; stroke: var(--peat); stroke-width: 1; }
+.mmc .dot.ref, .mmc .pt.ref, .mmc .kmark.ref { fill: var(--peat); stroke: currentColor; stroke-width: 1.2; }
+.mmc .dot.mk-cross, .mmc .pt.mk-cross, .mmc .kmark.mk-cross { fill: none; stroke: currentColor; stroke-width: 1.4; }
+
+/* Bars step down in fill as their tone steps down; the third tone adds a rim. A shuffled-maps bar is hollow, its
+   rim dashed. */
+.mmc .bar, .mmc .swatch { fill: currentColor; stroke: none; }
+.mmc .bar.tone-0, .mmc .swatch.tone-0 { fill-opacity: .72; }
+.mmc .bar.tone-1, .mmc .swatch.tone-1 { fill-opacity: .48; }
+.mmc .bar.tone-2, .mmc .swatch.tone-2 { fill-opacity: .26; stroke: currentColor; stroke-width: 1; }
+.mmc .bar.ref, .mmc .swatch.ref { fill: var(--peat); fill-opacity: 1; stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 2; }
+.mmc .bar.ref-2, .mmc .swatch.ref-2 { stroke-dasharray: 1 2; }
+
+/* Attention states: one encoding on every chart and in every key, from the map's own caps. Loud is the lightest (an
+   open cap), quiet is dim (a closed cap: bone at half strength on peat, 4.2:1), tired is ash umber (a dropped cap
+   beside its spore print). These come after the tones and the live colour, so a state always reads as itself. */
+.mmc .st-loud, .mmc.live .st-loud { color: var(--bone); }
+.mmc .st-quiet, .mmc.live .st-quiet { color: #867d6e; }
+.mmc .st-tired, .mmc.live .st-tired { color: var(--ash); }
+.mmc .bar.st-loud { fill-opacity: .8; stroke: none; }
+.mmc .bar.st-quiet, .mmc .bar.st-tired { fill-opacity: 1; stroke: none; }
+/* The key's cap marks, drawn small (charts.js capMark), in the sketch's cap colours. */
+.mmc .cap.quiet .cap-body { fill: #867d6e; }
+.mmc .cap.loud .cap-body { fill: var(--bone); }
+.mmc .cap.loud .cap-gill { fill: none; stroke: #8c7c61; stroke-width: .75; }
+.mmc .cap.loud .cap-stem { fill: #c4b38e; }
+.mmc .cap.tired .cap-print { fill: var(--ash); fill-opacity: .42; }
+.mmc .cap.tired .cap-print-gill { fill: none; stroke: var(--ash); stroke-width: .65; }
+.mmc .cap.tired .cap-body { fill: var(--ash); stroke: var(--peat); stroke-width: 1; }
+
+/* A set of shuffled maps on a line chart: one hollow bar from its lowest to its highest, crossed by a tick at its
+   average, in its real partner's tone, in a strip at the right of the plot named "shuffled". A second set of one
+   partner takes a dotted rim. */
+.mmc .rng, .mmc .krng { fill: var(--peat); stroke: currentColor; stroke-width: 1.2; }
+.mmc .rng.ref-2, .mmc .krng.ref-2 { stroke-dasharray: 1.5 1.5; }
+.mmc .rng-mean, .mmc .krng-mean { fill: none; stroke: currentColor; stroke-width: 1.6; }
+.mmc .strip { font-family: var(--serif); font-size: 12px; font-style: italic; letter-spacing: 0; font-variant-numeric: normal; fill: var(--bone-3); }
+
+/* A chart's single reading: a larger point, in from the edge, its value beside it. */
+.mmc .dot.lone { stroke-width: 1.5; }
+.mmc .lone-val { fill: var(--bone-2); font-size: 12px; }
+
+/* Stacked shares: alternate fills with a peat hairline between bands; a band that is a state takes the state's fill. */
+.mmc .area { fill: var(--bone-2); fill-opacity: .5; stroke: var(--peat); stroke-width: 1; stroke-linejoin: round; }
+.mmc .area.alt { fill: var(--bone-4); fill-opacity: .3; }
+.mmc .aswatch { fill: var(--bone-2); fill-opacity: .5; stroke: none; }
+.mmc .aswatch.alt { fill: var(--bone-4); fill-opacity: .3; }
+.mmc .area.st-loud { fill: currentColor; fill-opacity: .8; }
+.mmc .area.st-quiet, .mmc .area.st-tired { fill: currentColor; fill-opacity: 1; }
+
+/* An area of many series, drawn as rows: one strip per series on one shared scale, a ridge along its top. */
+.mmc .area.strip { fill: var(--bone-2); fill-opacity: .42; stroke: none; }
+.mmc .ridge { fill: none; stroke: var(--bone-2); stroke-width: 1; stroke-linejoin: round; }
+.mmc .rowbase { stroke: var(--bone-4); stroke-opacity: .45; stroke-width: 1; }
+
+/* Heat: chanterelle for moved with, amethyst for moved against, humus for neither; peat gaps between cells. */
+.mmc .cell { stroke: var(--peat); stroke-width: 2; }
+.mmc .lv2 { fill: var(--chanterelle); }
+.mmc .lv1 { fill: var(--chanterelle); fill-opacity: .5; }
+.mmc .lv0 { fill: var(--humus); }
+.mmc .lv-1 { fill: var(--amethyst); fill-opacity: .55; }
+.mmc .lv-2 { fill: var(--amethyst); }
+.mmc .nil { fill: none; stroke: var(--ash); stroke-width: 1; }
+
+/* A market fall: a stretch of ash under everything else, as strong as a chance band (about 1.5:1 on peat), so a
+   guest finds the falls the note names at a glance; the line over it keeps more than 8:1. */
+.mmc .fall { fill: var(--ash); fill-opacity: .45; stroke: none; }
+
+/* ---- The atlas page (atlas.html). A masthead, then a contents rail beside one calm reading column of numbered
+   plates. 1024px and wider: a sticky 220px rail, and a column whose text keeps to 68ch while its figures reach
+   760px. Below 1024px the contents fold into a "Contents" disclosure at the top. Below 640px the gutters are 16px. */
+
+.atlas-page [hidden] { display: none !important; }
+
+.skip {
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  z-index: 10;
+  padding: 6px 12px 5px;
+  background: var(--peat);
+  transform: translateY(-300%);
+}
+.skip:focus { transform: none; }
+
+.masthead, .atlas-body { width: min(1036px, calc(100% - 64px)); margin: 0 auto; }
+.masthead { padding-top: 20px; padding-bottom: 34px; border-bottom: 1px solid var(--ash); }
+.masthead-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+}
+.masthead-links { display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 14.5px; }
+.masthead-links a { color: var(--bone-2); }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.masthead h1 {
+  margin: 48px 0 0;
+  font-size: 46px;
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+}
+.lede {
+  margin: 14px 0 0;
+  max-width: 56ch;
+  font-size: 18px;
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--bone-2);
+}
+.shelfnote { margin: 14px 0 0; font-size: 14px; color: var(--bone-3); }
+/* A general note of the file that changes how the plates read (some look-alike sets could not be re-checked): at the
+   top, under the shelf's line, in the brighter bone of a lede. */
+.shelfwarn { margin-top: 6px; max-width: 68ch; font-style: italic; color: var(--bone-2); }
+.shelf { margin-top: 20px; }
+.switch { display: flex; flex-wrap: wrap; gap: 8px; }
+.today { margin-top: 16px; }
+.today-lead { margin: 0; font-size: 14px; font-style: italic; color: var(--bone-3); }
+.today-list { list-style: none; margin: 6px 0 0; padding: 0; font-size: 15px; line-height: 1.6; }
+.today-list em { color: var(--bone-2); }
+.today-list .when { color: var(--bone-3); }
+
+.atlas-body {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 760px);
+  column-gap: 56px;
+  align-items: start;
+  padding-bottom: 112px;
+}
+.toc { display: none; }
+.rail {
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--ash) transparent;
+  /* The rail scrolls, so it clips: 6px of room on the left (given back by the margin, so the text stays put) keeps a
+     row's focus ring whole. */
+  margin-left: -6px;
+  padding: 22px 8px 22px 6px;
+}
+.atlas-main { grid-column: 2; grid-row: 1; min-width: 0; }
+.atlas-main:focus, .atlas-plate:focus, .closing:focus { outline: none; }
+
+/* The contents: each group's title in a colony's small caps, its plates numbered under it. */
+.contents, .contents-plates { list-style: none; margin: 0; padding: 0; }
+.contents-group + .contents-group { margin-top: 13px; }
+.contents-title { display: block; margin-bottom: 4px; white-space: normal; line-height: 1.25; }
+.contents-plates a {
+  display: grid;
+  grid-template-columns: 1.9em 1fr;
+  padding: 2px 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--bone-2);
+  text-decoration: none;
+}
+.contents-plates a .fig { color: var(--bone-4); padding-top: .1em; }
+.contents-end .contents-plates a { grid-template-columns: 1fr; }
+/* The place in view: its row in full bone, its name underlined. */
+.contents-plates a[aria-current], .contents-plates a[aria-current] .fig { color: var(--bone); }
+.contents-plates a[aria-current] .contents-name {
+  text-decoration-line: underline;
+  text-decoration-color: var(--bone-3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+@media (hover: hover) {
+  .contents-plates a:hover { color: var(--bone); }
+  .contents-plates a:hover .contents-name {
+    text-decoration-line: underline;
+    text-decoration-color: var(--bone-4);
+    text-underline-offset: 3px;
+  }
+}
+
+/* Disclosures (the contents on a narrow screen, the numbers under a chart, a plate's longer notes): a drawn wedge that
+   turns when open. */
+.toc > summary, .numbers > summary, .plate-notes-box > summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  list-style: none;
+}
+.toc > summary::-webkit-details-marker, .numbers > summary::-webkit-details-marker,
+.plate-notes-box > summary::-webkit-details-marker { display: none; }
+.toc > summary::before, .numbers > summary::before, .plate-notes-box > summary::before {
+  content: "";
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.toc[open] > summary::before, .numbers[open] > summary::before, .plate-notes-box[open] > summary::before { transform: rotate(90deg); }
+@media (prefers-reduced-motion: no-preference) {
+  .toc > summary::before, .numbers > summary::before, .plate-notes-box > summary::before { transition: transform .16s cubic-bezier(.16, 1, .3, 1); }
+}
+.toc { margin-top: 20px; border-bottom: 1px solid var(--ash); }
+.toc > summary { min-height: 44px; font-size: 16px; color: var(--bone); }
+.toc nav { padding: 2px 0 22px; }
+
+/* The plates. */
+.state { margin: 36px 0 0; max-width: 68ch; font-style: italic; color: var(--bone-2); }
+.group { margin-top: 96px; }
+.group:first-of-type { margin-top: 44px; }
+.group > h2 { margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.008em; }
+.group-line {
+  margin: 12px 0 0;
+  max-width: 60ch;
+  font-size: 17px;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--bone-2);
+}
+.atlas-plate { margin-top: 60px; scroll-margin-top: 24px; }
+.atlas-plate h3 { margin: 0; max-width: 34em; font-size: 24px; line-height: 1.2; }
+.atlas-plate .num { color: var(--bone-3); }
+.what {
+  margin: 8px 0 0;
+  max-width: 68ch;
+  font-size: 16px;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--bone-2);
+}
+/* A plate's own notes, from its file: a short quiet list under the description, the faces of the page's notes. */
+.plate-notes {
+  margin: 10px 0 0;
+  padding-left: 1.1em;
+  max-width: 68ch;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--bone-3);
+}
+.plate-notes li + li { margin-top: 4px; }
+.plate-notes li::marker { color: var(--bone-4); }
+.plate-notes-box { margin-top: 10px; max-width: 68ch; }
+.plate-notes-box > summary { display: inline-flex; min-height: 32px; font-size: 14px; color: var(--bone-2); }
+@media (hover: hover) { .plate-notes-box > summary:hover { color: var(--bone); } }
+.plate-notes-box > .plate-notes { margin-top: 2px; }
+.figure { margin: 22px 0 0; max-width: 760px; }
+.chart-problem {
+  margin: 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--ash);
+  border-bottom: 1px solid var(--ash);
+  font-style: italic;
+  color: var(--bone-2);
+}
+.caption { margin: 12px 0 0; max-width: 68ch; font-size: 14px; line-height: 1.45; color: var(--bone-2); }
+/* The made-up mark travels with the reader: on each plate's cases line, at the top of the rail (held there while the
+   rail scrolls), on the phone's Contents bar and at the scoreboard, wherever the data in view is made up. */
+.caption .quietbadge { margin-left: 3px; white-space: nowrap; }
+.railmark { position: sticky; top: 0; z-index: 1; margin: 0 0 12px; padding-bottom: 6px; background: var(--peat); }
+.toc > summary .quietbadge { margin-left: auto; }
+.madeup-line { margin: 12px 0 0; }
+.notes { list-style: none; margin: 6px 0 0; padding: 0; max-width: 68ch; font-size: 14px; line-height: 1.45; color: var(--bone-3); }
+.notes li + li { margin-top: 3px; }
+.atlas-page .date { white-space: nowrap; }
+
+/* The numbers: the chart as a table, in the sans, inside its own scroller so the page never scrolls sideways. */
+.numbers { margin-top: 10px; max-width: 760px; }
+.numbers > summary { display: inline-flex; min-height: 32px; font-size: 14px; color: var(--bone-2); }
+@media (hover: hover) { .numbers > summary:hover { color: var(--bone); } }
+.tablewrap {
+  margin-top: 6px;
+  max-height: 26rem;
+  overflow: auto;
+  border-top: 1px solid var(--ash);
+  border-bottom: 1px solid var(--ash);
+}
+.tablewrap table {
+  border-collapse: collapse;
+  min-width: 100%;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: .02em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--bone-2);
+}
+.tablewrap th, .tablewrap td {
+  padding: 5px 0 5px 16px;
+  border-bottom: 1px solid color-mix(in srgb, var(--bone) 8%, transparent);
+  font-weight: 400;
+  text-align: right;
+  white-space: nowrap;
+}
+.tablewrap tr > :first-child { padding-left: 0; text-align: left; }
+.tablewrap thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  min-width: 6.5em;
+  background: var(--peat);
+  border-bottom-color: var(--ash);
+  vertical-align: bottom;
+  white-space: normal;
+  font-family: var(--serif);
+  font-style: italic;
+  letter-spacing: 0;
+  color: var(--bone-3);
+}
+.tablewrap tbody th { color: var(--bone-3); }
+/* A wide table keeps its row labels in view as it scrolls sideways. */
+.tablewrap tr > :first-child { position: sticky; left: 0; z-index: 1; padding-right: 12px; background: var(--peat); }
+.tablewrap thead tr > :first-child { z-index: 2; }
+.tablenote { margin: 8px 0 0; font-size: 13px; line-height: 1.45; color: var(--bone-3); }
+ul.tablenote { padding-left: 1.2em; }
+
+/* The closing sections: the atlas's notes and the scoreboard. */
+.closing { margin-top: 112px; max-width: 68ch; scroll-margin-top: 24px; }
+.closing > h2 { margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.008em; }
+.closing-lede { margin: 12px 0 0; font-size: 16px; line-height: 1.5; font-style: italic; color: var(--bone-2); }
+.closing-notes { margin: 18px 0 0; padding-left: 1.1em; font-size: 15px; line-height: 1.5; color: var(--bone-2); }
+.closing-notes li + li { margin-top: 6px; }
+.closing-notes li::marker { color: var(--bone-4); }
+.scoreboard { list-style: none; margin: 24px 0 0; padding: 0; }
+.entry + .entry { margin-top: 30px; }
+.entry-name { margin: 0; font-size: 21px; line-height: 1.25; }
+.entry-name .fig { color: var(--bone-3); }
+.entry-meta { margin: 6px 0 0; font-size: 14px; font-style: italic; color: var(--bone-3); }
+.entry-summary { margin: 8px 0 0; font-size: 15.5px; line-height: 1.5; color: var(--bone-2); }
+.entry-link { margin: 8px 0 0; font-size: 14.5px; }
+.closing-note { margin: 18px 0 0; font-size: 14px; line-height: 1.45; color: var(--bone-3); }
+
+/* Tablets: no rail; the contents sit in their disclosure at the top, and figures take the column's width. */
+@media (max-width: 1023px) {
+  .masthead, .atlas-body { width: min(760px, calc(100% - 64px)); }
+  .atlas-body { display: block; }
+  .rail { display: none; }
+  /* The contents bar stays at the top as the plates scroll under it. Open, its list lies over the page and scrolls on
+     its own, so opening and closing it never moves the page, in any browser. */
+  .toc { display: block; position: sticky; top: 0; z-index: 5; background: var(--peat); }
+  /* It scrolls, so it clips: it reaches 6px past the column on each side, and its padding brings the rows back, so a
+     row's focus ring stays whole and the rows stay in line with the bar. */
+  .toc[open] nav {
+    position: absolute;
+    left: -6px;
+    right: -6px;
+    padding: 2px 6px 22px;
+    top: 100%;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--peat);
+    border-bottom: 1px solid var(--ash);
+  }
+  /* Whatever the page scrolls to (a jump, the skip link's target, a control reached by keyboard) lands clear of the bar.
+     The bar's own summary sits inside that strip, so it cancels the padding by the same 56px: tapping or focusing the
+     bar never moves the page. */
+  html { scroll-padding-top: 56px; }
+  .toc > summary { scroll-margin-top: -56px; }
+  .atlas-plate, .closing { scroll-margin-top: 12px; }
+  .masthead h1 { margin-top: 40px; font-size: 42px; }
+  .group:first-of-type { margin-top: 36px; }
+}
+/* Phones: 16px gutters, and the type steps down one size. */
+@media (max-width: 639px) {
+  .masthead, .atlas-body { width: calc(100% - 32px); }
+  .masthead { padding-bottom: 28px; }
+  .masthead h1 { margin-top: 32px; font-size: 36px; }
+  .lede { font-size: 17px; }
+  .group { margin-top: 72px; }
+  .group > h2, .closing > h2 { font-size: 28px; }
+  .group-line { font-size: 16px; }
+  .atlas-plate { margin-top: 48px; }
+  .atlas-plate h3 { font-size: 20px; }
+  .closing { margin-top: 88px; }
+}
+/* Touch: every link and row a finger uses is at least 44px tall, by padding, never by bigger type. */
+@media (max-width: 639px), (pointer: coarse) {
+  .masthead-links a, .entry-link a { display: inline-flex; align-items: center; min-height: 44px; }
+  .contents-plates a { min-height: 44px; padding: 12px 0; }
+  .numbers > summary, .plate-notes-box > summary { min-height: 44px; }
+}
+
+/* ---- The report page (map-report.html): the history-test report, read from Markdown and set as a page of this world.
+   Headings in the serif, paragraphs in the serif at a reading measure, tables in the sans with tabular figures and in
+   their own scroller, so a long line never makes the page scroll sideways. */
+.report-head, .report { width: min(760px, calc(100% - 64px)); margin: 0 auto; }
+.report-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  padding-top: 20px;
+}
+.report-back { font-size: 14.5px; }
+.report-back a { color: var(--bone-2); }
+.report { padding-bottom: 96px; }
+.report h1 { margin: 44px 0 0; max-width: 22em; font-size: 40px; line-height: 1.1; letter-spacing: -0.01em; }
+.report h2 { margin: 56px 0 0; font-size: 27px; line-height: 1.15; letter-spacing: -0.006em; }
+.report h3 { margin: 40px 0 0; font-size: 21px; line-height: 1.25; }
+.report h4 { margin: 32px 0 0; font-size: 17.5px; line-height: 1.3; font-style: italic; color: var(--bone-2); }
+.report h1, .report h2, .report h3, .report h4 { overflow-wrap: anywhere; }
+.report p, .report ul {
+  margin: 14px 0 0;
+  max-width: 68ch;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--bone-2);
+  overflow-wrap: anywhere;
+}
+.report h1 + p, .report h1 + ul { margin-top: 18px; }
+.report ul { padding-left: 1.15em; }
+.report li + li { margin-top: 7px; }
+.report li::marker { color: var(--bone-4); }
+.report strong { font-weight: 600; color: var(--bone); }
+.report code {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+  font-size: .84em;
+  color: var(--bone);
+  overflow-wrap: anywhere;
+}
+.report-table {
+  margin: 22px 0 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-top: 1px solid var(--ash);
+  border-bottom: 1px solid var(--ash);
+}
+.report-table table {
+  border-collapse: collapse;
+  min-width: 100%;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--bone-2);
+}
+.report-table th, .report-table td {
+  padding: 7px 0 7px 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--bone) 8%, transparent);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+.report-table tr > :first-child { padding-left: 0; }
+.report-table tbody tr:last-child > * { border-bottom: 0; }
+.report-table thead th {
+  border-bottom-color: var(--ash);
+  vertical-align: bottom;
+  font-family: var(--serif);
+  font-style: italic;
+  letter-spacing: 0;
+  color: var(--bone-3);
+}
+.report-table .mid { text-align: center; }
+.report-table .end { text-align: right; }
+.report-table .mid, .report-table .end { white-space: nowrap; }   /* a column set to align holds figures: never "11 of / 20" */
+.report-table code { font-size: .92em; }
+@media (max-width: 639px) {
+  .report-head, .report { width: calc(100% - 32px); }
+  .report-head { padding-top: 16px; }
+  .report { padding-bottom: 64px; }
+  .report h1 { margin-top: 30px; font-size: 32px; }
+  .report h2 { margin-top: 44px; font-size: 24px; }
+  .report p, .report ul { font-size: 16.5px; }
+}
+@media (max-width: 639px), (pointer: coarse) {
+  .report-back a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+
+/* map:start */
+/* ---- The ripple map (map.html). One canvas fills the screen edge to edge: the forest floor seen from below. The
+   sentence and its key sit top left, the dials top right, the soil core and the foot along the bottom, the colony
+   names and the plate captions on the ground among the caps. They are text on the peat, never a panel or a card. */
+.map-page { position: fixed; inset: 0; overflow: hidden; }
+.map-page [hidden] { display: none !important; }
+.map-field { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+
+.map-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: max(clamp(14px, 3.8vh, 34px), env(safe-area-inset-top)) calc(clamp(16px, 2.5vw, 36px) + env(safe-area-inset-right)) 0
+           calc(clamp(16px, 3.3vw, 48px) + env(safe-area-inset-left));
+  pointer-events: none;
+}
+.map-top > * { pointer-events: auto; }
+/* The sentence's band is held at its longest size, so most of it is empty ground: a tap there reaches the map. Only its
+   controls take the pointer. */
+.map-top > .map-say { pointer-events: none; }
+.map-say button, .map-say input, .map-say a, .map-say summary, .map-say .map-dials, .map-tool-drop > * { pointer-events: auto; }
+.map-say { flex: 0 1 820px; min-width: 0; }
+.map-say h1 {
+  margin: 0;
+  font-size: clamp(26px, 2.43vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -0.006em;
+  color: var(--bone);
+}
+.map-sub { margin: 10px 0 0; max-width: 46em; font-size: 15.5px; line-height: 1.4; font-style: italic; color: var(--bone-3); }
+.map-sub:empty { display: none; }
+.map-notes { margin: 6px 0 0; max-width: 46em; font-size: 14px; line-height: 1.4; color: var(--bone-2); }
+.map-key {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 6px;
+  max-width: 640px;
+  margin: 16px 0 0;
+  padding: 0;
+}
+.map-key li { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1; color: var(--bone-2); }
+.map-key canvas { display: block; flex: none; width: 22px; height: 22px; }
+.map-key .map-key-wide canvas { width: 34px; }
+.map-key .map-key-break { flex-basis: 100%; height: 0; }
+
+/* The dials: cut stems with their growth rings, a name under each in bone and its word in italic. */
+.map-dials { flex: none; margin-top: -10px; }
+.map-dial-row { display: flex; align-items: flex-start; gap: 4px; }
+.map-dial { margin: 0; width: clamp(84px, 6.7vw, 100px); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.map-dial canvas { display: block; }
+.map-dial.map-dial-bare canvas { visibility: hidden; }
+.map-dial-row.map-dial-none canvas { display: none; }
+.map-dial-name { display: block; margin-top: 6px; font-size: 13.5px; line-height: 1.15; color: var(--bone); }
+.map-dial-word { display: block; min-height: 2.4em; margin-top: 3px; font-size: 12.5px; line-height: 1.2; font-style: italic; color: var(--bone-3); }
+.map-dials-when { margin: 6px 0 0; font-size: 12.5px; line-height: 1.2; font-style: italic; text-align: right; color: var(--bone-3); }
+
+/* The tools under the key: text switches in one row. Reset view keeps its place while hidden, so the row never reflows.
+   Under the row, on a layer of its own over the field, the search and the tools' notes, each on a patch of peat. */
+.map-tools { position: relative; margin-top: 14px; }
+.map-tool-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.map-tool-row .textbutton { min-height: 30px; padding: 5px 12px 3px; font-size: 13.5px; }
+.map-reset { visibility: hidden; }
+.map-reset.map-on { visibility: visible; }
+.map-tool-drop { position: absolute; left: 0; top: 100%; z-index: 4; width: min(420px, 100%); padding-top: 8px; pointer-events: none; }
+.map-tool-drop > * { pointer-events: auto; }
+.map-find { padding: 10px 12px 8px; background: var(--peat); border: 1px solid var(--ash); }
+.map-find-input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 6px 2px 5px;
+  border: 0;
+  border-bottom: 1px solid var(--bone-4);
+  border-radius: 0;
+  background: transparent;
+  color: var(--bone);
+  font-size: 16px;
+  line-height: 1.3;
+}
+.map-find-input:focus { outline: none; border-bottom-color: var(--bone); }
+.map-find-input:focus-visible { outline: 1.5px solid var(--bone); outline-offset: 3px; }
+.map-found { list-style: none; margin: 6px 0 0; padding: 0; }
+.map-found:empty { display: none; }
+.map-found-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  min-height: 32px;
+  margin: 0;
+  padding: 5px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--bone-2);
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+.map-found-item .fig { min-width: 4.2em; color: var(--bone); }
+.map-found-name { font-style: italic; }
+@media (hover: hover) { .map-found-item:hover { color: var(--bone); background: var(--humus); } }
+.map-found-none { padding: 5px 2px; font-size: 13.5px; font-style: italic; color: var(--bone-3); }
+.map-tool-notes { margin-top: 6px; padding: 6px 10px 7px; background: var(--peat); font-size: 13.5px; line-height: 1.42; font-style: italic; color: var(--bone-2); }
+.map-tool-notes p { margin: 0; }
+.map-tool-notes p + p { margin-top: 3px; }
+
+/* Plates over the field: the record of a stock and the scoreboard. Each is a patch of bare peat with an ash rim, like a
+   caption plate grown larger; the lead in italic bone, the parts named in the colonies' small caps. On a phone each is a
+   sheet along the bottom that scrolls inside. */
+.map-record, .map-board {
+  position: absolute;
+  z-index: 5;
+  margin: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 10px 14px 12px;
+  background: var(--peat);
+  border: 1px solid var(--ash);
+  color: var(--bone-2);
+  font-size: 13.5px;
+  line-height: 1.42;
+}
+.map-record { width: 320px; }
+.map-board { right: clamp(16px, 2.5vw, 36px); width: min(440px, calc(100vw - 32px)); max-height: 62vh; }
+.map-plate-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.map-plate-title { margin: 3px 0 0; font-size: 19px; line-height: 1.2; color: var(--bone); }
+.map-plate-title em { font-style: italic; }
+.map-record-name { font-size: 15px; font-style: italic; color: var(--bone-3); }
+.map-close { flex: none; min-height: 28px; padding: 4px 11px 2px; font-size: 13px; }
+.map-record-sector { margin: 4px 0 6px; }
+.map-record-line { margin: 4px 0 0; }
+.map-record-part { margin: 14px 0 2px; font-weight: 400; }
+.map-record-links, .map-record-stories { list-style: none; margin: 0; padding: 0; }
+.map-record-links > li + li { margin-top: 6px; }
+.map-record-stories { margin: 3px 0 0 12px; }
+.map-record-stories li { margin-top: 2px; font-size: 13px; line-height: 1.38; }
+.map-record-stories a { color: var(--bone); }
+.map-record-day { font-style: italic; color: var(--bone-3); white-space: nowrap; }
+.map-record-note { margin: 3px 0 0; font-size: 13px; font-style: italic; color: var(--bone-3); }
+.map-board-lede { margin: 6px 0 0; font-style: italic; color: var(--bone-3); }
+.map-board-list { list-style: none; margin: 12px 0 0; padding: 0; }
+.map-board-list li + li { margin-top: 12px; }
+.map-board-name { margin: 0; font-size: 15.5px; line-height: 1.3; color: var(--bone); }
+.map-board-list p { margin: 4px 0 0; }
+.map-board-meta { font-style: italic; color: var(--bone-3); }
+.map-board-note, .map-board-report { margin: 10px 0 0; }
+.map-board-note { font-size: 13px; font-style: italic; color: var(--bone-3); }
+.map-record.map-sheet, .map-board.map-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: auto;
+  bottom: 0;
+  width: auto;
+  max-height: 55vh;
+  padding: 12px 16px 16px;
+  border-width: 1px 0 0;
+}
+
+/* Colony names in spaced small caps, and caption plates cut into the field beside their catalysts. */
+.map-labels, .map-captions { position: absolute; inset: 0; pointer-events: none; }
+.map-labels { z-index: 1; }
+.map-captions { z-index: 2; }
+.map-labels .colony { position: absolute; }
+.map-captions .plate { position: absolute; width: max-content; max-width: 286px; pointer-events: auto; }
+.map-captions .plate .fig { color: var(--bone); }
+/* The followed catalyst's plate keeps the plates' bare edge; its lead is underlined in bone, as a hover shows it in bone-4. */
+.map-captions .plate[aria-pressed="true"] em {
+  text-decoration-line: underline;
+  text-decoration-color: var(--bone);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.map-captions .plate[aria-pressed="true"]:focus-visible { outline: 1.5px solid var(--bone); outline-offset: 3px; }
+.map-dial:focus-visible { outline-offset: 2px; }
+
+/* The soil core and the foot along the bottom. */
+.map-bottom {
+  position: absolute;
+  left: calc(clamp(16px, 2.5vw, 36px) + env(safe-area-inset-left));
+  right: calc(clamp(16px, 2.5vw, 36px) + env(safe-area-inset-right));
+  bottom: calc(6px + env(safe-area-inset-bottom));
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+.map-bottom > * { pointer-events: auto; }
+.map-core { position: relative; height: 76px; }
+/* Play: the sketch's 42px round button on humus, centred on the strip. The strip and its labels sit to its right. */
+.map-play {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  padding: 0;
+  border: 1.5px solid var(--bone-3);
+  border-radius: 50%;
+  background: var(--humus);
+  color: var(--bone);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.map-play svg { display: block; }
+@media (hover: hover) {
+  .map-play:not(:disabled):hover { background: #3a2c22; border-color: var(--bone); }
+}
+.map-play:not(:disabled):active { background: var(--peat-deep); }
+.map-play:disabled { border-color: var(--ash); color: var(--bone-4); cursor: default; }
+.map-core-body { position: absolute; left: 58px; right: 0; top: 0; bottom: 0; }
+/* The range input lies over the strip, transparent: its thumb is as wide as a finger and its centre runs from the strip's
+   left end to its right end, so the value under the finger is the step the pin shows. */
+.map-core-range {
+  position: absolute;
+  left: -8px;
+  top: 6px;
+  width: calc(100% + 16px);
+  height: 52px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.map-core-range:disabled { cursor: default; }
+.map-core-range::-webkit-slider-runnable-track { height: 52px; background: transparent; border: 0; }
+.map-core-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 52px; background: transparent; border: 0; }
+.map-core-range::-moz-range-track { height: 52px; background: transparent; border: 0; }
+.map-core-range::-moz-range-thumb { width: 16px; height: 52px; background: transparent; border: 0; }
+.map-core-range:focus { outline: none; }
+.map-core-range:focus-visible { outline: 1.5px solid var(--bone); outline-offset: 2px; }
+.map-core-note, .map-core-recent {
+  position: absolute;
+  top: 0;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--bone-3);
+}
+.map-core-note { left: 0; }
+.map-core-recent { font-size: 12.5px; }
+.map-core-when {
+  position: absolute;
+  top: 0;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: .03em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--bone);
+}
+.map-core-when.map-stale { font-family: var(--serif); font-size: 13px; font-style: italic; letter-spacing: 0; color: var(--bone-3); }
+/* When the clock comes from the link, the time says so, so a shared link never makes an old reading look live. */
+.map-core-clock { margin-left: 4px; font-family: var(--serif); font-size: 12.5px; font-style: italic; letter-spacing: 0; color: var(--bone-3); }
+.map-core-strip { position: absolute; left: 0; top: 6px; width: 100%; height: 56px; display: block; }
+.map-core-years { position: absolute; left: 0; right: 0; top: 62px; height: 14px; }
+.map-core-years span {
+  position: absolute;
+  top: 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .06em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--bone-4);
+}
+.map-core-years .map-core-closed { font-family: var(--serif); font-size: 12px; font-style: italic; letter-spacing: 0; color: var(--bone-3); }
+.map-core-years .map-core-today { color: var(--bone-2); }
+.map-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px 16px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.map-foot a { color: var(--bone-2); }
+.map-foot .map-speed { margin-right: auto; font-variant-numeric: lining-nums tabular-nums; }
+.map-noscript { position: absolute; left: 50%; top: 45%; transform: translateX(-50%); margin: 0; font-size: 18px; font-style: italic; color: var(--bone-2); }
+
+/* The folds: on a phone the key, the tools and (on its side) the dials fold behind a switch each. On every other screen
+   they stand open and their switches are not shown, so the page reads as it always has. */
+.map-fold > summary { display: none; }
+.map-fold-head { list-style: none; }
+.map-fold-head::-webkit-details-marker { display: none; }
+.map-fold-head::before {
+  content: "";
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.map-fold[open] > .map-fold-head { border-color: var(--bone); color: var(--bone); }
+.map-fold[open] > .map-fold-head::before { transform: rotate(90deg); }
+@media (prefers-reduced-motion: no-preference) {
+  .map-fold-head::before { transition: transform .16s cubic-bezier(.16, 1, .3, 1); }
+}
+
+/* Each kind of screen is composed for itself (MapCore.layoutMode sets data-mode on the body): the dials' rings are 76px on a
+   desktop, 64px on a tablet, 56px on a phone and 44px on a phone on its side. */
+.map-dial canvas { width: 76px; height: 76px; }
+
+/* Tablets (640 to 1023 wide): the dials under the sentence, so the sentence keeps a reading measure. */
+.map-page[data-mode="tablet"] .map-top { flex-direction: column; gap: 14px; }
+.map-page[data-mode="tablet"] .map-say { flex: none; width: 100%; }
+.map-page[data-mode="tablet"] .map-dials { margin-top: 0; }
+.map-page[data-mode="tablet"] .map-dial { width: 84px; }
+.map-page[data-mode="tablet"] .map-dial canvas { width: 64px; height: 64px; }
+.map-page[data-mode="tablet"] .map-dials-when { text-align: left; }
+
+/* Phones (under 640 wide), upright: the sentence at 24px over its first sentence; one row of switches for the key, the tools
+   and the dials, whose contents open on a patch of peat over the field (so the field never moves); the field, from under the
+   sentence to the soil core; the core and the foot along the bottom. Every gutter is 16px plus the screen's safe area, and every control is at least
+   44px each way. */
+.map-page[data-mode="phone"] .map-top {
+  flex-direction: column;
+  gap: 8px;
+  padding: max(10px, env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 0 calc(16px + env(safe-area-inset-left));
+}
+.map-page[data-mode="phone"] .map-say { position: relative; flex: none; width: 100%; }
+.map-page[data-mode="phone"] .map-say h1 { font-size: 24px; line-height: 1.16; }
+.map-page[data-mode="phone"] .map-sub { margin-top: 4px; font-size: 14px; line-height: 1.35; }
+.map-page[data-mode="phone"] .map-notes { font-size: 13px; }
+.map-page[data-mode="phone"] .map-folds { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.map-page[data-mode="phone"] .map-fold > .map-fold-head,
+.map-page[data-mode="phone-landscape"] .map-fold > .map-fold-head { display: inline-flex; min-height: 44px; padding: 9px 15px 7px; font-size: 14px; }
+.map-page[data-mode="phone"] .map-fold[open] > .map-key,
+.map-page[data-mode="phone"] .map-fold[open] > .map-tools,
+.map-page[data-mode="phone"] .map-fold[open] > .map-dials {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 6;
+  margin: 6px 0 0;
+  padding: 12px 12px 14px;
+  background: var(--peat);
+  border: 1px solid var(--ash);
+  pointer-events: auto;
+}
+.map-page[data-mode="phone"] .map-key { column-gap: 16px; row-gap: 10px; }
+.map-page[data-mode="phone"] .map-key li { font-size: 13px; }
+.map-page[data-mode="phone"] .map-key .map-key-break { display: none; }
+.map-page[data-mode="phone"] .map-tool-row { gap: 8px; }
+.map-page[data-mode="phone"] .map-tool-row .textbutton { min-height: 44px; padding: 9px 14px 7px; font-size: 14px; }
+.map-page[data-mode="phone"] .map-tool-drop { position: static; width: 100%; padding-top: 0; }
+/* In a fold, reset view takes no room while it is not offered: the fold is over the field, so nothing moves. */
+.map-page[data-mode="phone"] .map-reset:not(.map-on),
+.map-page[data-mode="phone-landscape"] .map-reset:not(.map-on) { display: none; }
+.map-page[data-mode="phone"] .map-find { margin-top: 10px; }
+.map-page[data-mode="phone"] .map-fold[open] > .map-dials { padding: 10px 8px; }
+.map-page[data-mode="phone"] .map-dial-row { justify-content: space-between; gap: 2px; }
+.map-page[data-mode="phone"] .map-dial { width: 20%; min-width: 0; }
+.map-page[data-mode="phone"] .map-dial canvas { width: 56px; height: 56px; }
+.map-page[data-mode="phone"] .map-dial-name {
+  margin-top: 4px;
+  font-size: 11.5px;
+  line-height: 1.15;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.map-page[data-mode="phone"] .map-dial-word { margin-top: 2px; font-size: 11.5px; line-height: 1.15; min-height: 2.3em; }
+.map-page[data-mode="phone"] .map-dials-when { margin-top: 2px; font-size: 11.5px; }
+/* With a record open, the sheet covers the lower field, and the page brings the tapped cap into the field above it. */
+.map-page[data-mode="phone"] .map-record.map-sheet,
+.map-page[data-mode="phone"] .map-board.map-sheet { max-height: 46vh; padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+.map-page[data-mode="phone"] .map-close { min-height: 44px; padding: 9px 15px 7px; }
+.map-page[data-mode="phone"] .map-found-item { min-height: 44px; }
+.map-page[data-mode="phone"] .map-captions .plate { min-height: 44px; max-width: calc(100vw - 32px); }
+
+/* The bottom on a phone: the time label on a row of its own above the pin's knob, so it never crosses the pin; a 44px play
+   button; one line of foot, the speed button showing only its figure. */
+.map-page[data-mode="phone"] .map-bottom,
+.map-page[data-mode="phone-landscape"] .map-bottom {
+  left: calc(16px + env(safe-area-inset-left));
+  right: calc(16px + env(safe-area-inset-right));
+  bottom: calc(2px + env(safe-area-inset-bottom));
+  gap: 0;
+}
+.map-page[data-mode="phone"] .map-core,
+.map-page[data-mode="phone-landscape"] .map-core { height: 84px; }
+.map-page[data-mode="phone"] .map-play,
+.map-page[data-mode="phone-landscape"] .map-play { top: 22px; width: 44px; height: 44px; }
+.map-page[data-mode="phone"] .map-core-body,
+.map-page[data-mode="phone-landscape"] .map-core-body { left: 56px; }
+.map-page[data-mode="phone"] .map-core-strip,
+.map-page[data-mode="phone-landscape"] .map-core-strip { top: 14px; }
+.map-page[data-mode="phone"] .map-core-range,
+.map-page[data-mode="phone-landscape"] .map-core-range { top: 14px; }
+.map-page[data-mode="phone"] .map-core-years,
+.map-page[data-mode="phone-landscape"] .map-core-years { top: 70px; }
+.map-page[data-mode="phone"] .map-foot,
+.map-page[data-mode="phone-landscape"] .map-foot { gap: 0 10px; font-size: 13.5px; }
+.map-page[data-mode="phone"] .map-foot > a,
+.map-page[data-mode="phone"] .map-foot .map-speed,
+.map-page[data-mode="phone-landscape"] .map-foot > a,
+.map-page[data-mode="phone-landscape"] .map-foot .map-speed { min-width: 44px; min-height: 44px; justify-content: center; }
+.map-page[data-mode="phone"] .map-foot > a,
+.map-page[data-mode="phone-landscape"] .map-foot > a { display: inline-flex; align-items: center; }
+.map-page[data-mode="phone"] .map-foot .map-speed { padding: 6px 12px 4px; }
+.map-page[data-mode="phone"] .map-foot .quietbadge { font-size: 11px; padding: 3px 6px 4px; }
+
+/* Phones on their side (under 500 high, under 1024 wide): the head line alone, with the switches for the key, the tools and
+   the dials beside it; the field; the soil core. The folds open over the field from under their switches. */
+.map-page[data-mode="phone-landscape"] .map-top {
+  align-items: flex-start;
+  gap: 8px;
+  padding: max(6px, env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 0 calc(16px + env(safe-area-inset-left));
+}
+.map-page[data-mode="phone-landscape"] .map-say { position: relative; flex: 1 1 auto; display: flex; align-items: center; gap: 8px 12px; }
+.map-page[data-mode="phone-landscape"] .map-say h1 {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 18px;
+  line-height: 1.22;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.map-page[data-mode="phone-landscape"] .map-sub,
+.map-page[data-mode="phone-landscape"] .map-notes { display: none; }
+.map-page[data-mode="phone-landscape"] .map-folds { display: flex; gap: 8px; flex: none; }
+.map-page[data-mode="phone-landscape"] .map-fold[open] > .map-key,
+.map-page[data-mode="phone-landscape"] .map-fold[open] > .map-tools,
+.map-page[data-mode="phone-landscape"] .map-fold-dials[open] > .map-dials {
+  position: absolute;
+  top: 100%;
+  z-index: 6;
+  margin: 6px 0 0;
+  padding: 10px 12px 12px;
+  background: var(--peat);
+  border: 1px solid var(--ash);
+  pointer-events: auto;
+}
+.map-page[data-mode="phone-landscape"] .map-fold[open] > .map-key,
+.map-page[data-mode="phone-landscape"] .map-fold[open] > .map-tools { right: 0; width: min(520px, 100%); }
+.map-page[data-mode="phone-landscape"] .map-key { column-gap: 16px; row-gap: 10px; }
+.map-page[data-mode="phone-landscape"] .map-key .map-key-break { display: none; }
+.map-page[data-mode="phone-landscape"] .map-tool-row .textbutton { min-height: 44px; padding: 9px 14px 7px; }
+.map-page[data-mode="phone-landscape"] .map-tool-drop { position: static; width: 100%; padding-top: 0; }
+.map-page[data-mode="phone-landscape"] .map-find { margin-top: 10px; }
+.map-page[data-mode="phone-landscape"] .map-fold-dials { position: relative; flex: none; }
+.map-page[data-mode="phone-landscape"] .map-fold-dials[open] > .map-dials { right: 0; }
+.map-page[data-mode="phone-landscape"] .map-dial { width: 76px; }
+.map-page[data-mode="phone-landscape"] .map-dial canvas { width: 44px; height: 44px; }
+.map-page[data-mode="phone-landscape"] .map-dial-name { font-size: 11.5px; }
+.map-page[data-mode="phone-landscape"] .map-dial-word { font-size: 11.5px; }
+.map-page[data-mode="phone-landscape"] .map-close { min-height: 44px; padding: 9px 15px 7px; }
+.map-page[data-mode="phone-landscape"] .map-found-item { min-height: 44px; }
+.map-page[data-mode="phone-landscape"] .map-captions { display: none; }
+
+@media (pointer: coarse) {
+  .map-play { width: 44px; height: 44px; }
+  .map-foot > a, .map-foot .map-speed { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+  .map-tool-row .textbutton { min-height: 44px; }
+  .map-captions .plate { min-height: 44px; }
+  .map-close { min-height: 44px; padding: 9px 15px 7px; }
+  .map-found-item { min-height: 44px; }
+}
+/* map:end */

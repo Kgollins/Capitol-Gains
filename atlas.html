@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The atlas</title>
+<link rel="icon" href="favicon.png">
+<link rel="stylesheet" href="world.css">
+</head>
+<body class="atlas-page">
+<a class="skip" href="#atlas-main">Skip to the plates</a>
+<header class="masthead">
+  <div class="masthead-top">
+    <nav class="masthead-links" aria-label="Pages">
+      <a href="./">Back to the dashboard</a>
+      <a href="map.html" id="atlas-map-link" hidden>Open the ripple map</a>
+    </nav>
+    <p class="badges">
+      <span class="quietbadge">view only: nothing here trades</span>
+      <span class="quietbadge" id="atlas-demo" hidden>made-up data for building the page</span>
+    </p>
+  </div>
+  <h1>The atlas</h1>
+  <p class="lede">How the market behaved on its links. Each plate is one chart, and each says how many cases it rests on and which years it shows.</p>
+  <p class="shelfnote" id="atlas-shelf-note" hidden></p>
+  <p class="shelfnote shelfwarn" id="atlas-shelf-warn" hidden></p>
+  <div class="shelf" id="atlas-shelf" hidden></div>
+</header>
+<div class="atlas-body">
+  <details class="toc" id="atlas-toc" hidden>
+    <summary>Contents <span class="quietbadge" id="atlas-toc-mark" hidden>made-up data</span></summary>
+    <nav id="atlas-toc-nav" aria-label="Contents"></nav>
+  </details>
+  <nav class="rail" id="atlas-rail" aria-label="Contents"></nav>
+  <main class="atlas-main" id="atlas-main" tabindex="-1">
+    <noscript><p class="state">The atlas needs JavaScript to draw its charts.</p></noscript>
+  </main>
+</div>
+<script src="world.js"></script>
+<script src="charts.js"></script>
+<script src="atlas.js"></script>
+</body>
+</html>
